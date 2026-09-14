@@ -1,0 +1,90 @@
+# =============================================================================
+# HE2AT Center — MCD Pipeline .gitignore
+# =============================================================================
+
+# ===== Large Data Files =====
+# CSV datasets (tracked via data lineage, not git)
+FINAL_DATASETS/**/*.csv
+FINAL_DATASETS/**/*.parquet
+
+# Force-include small reference files
+!FINAL_DATASETS/INDIVIDUAL_STUDIES/**/*_HARMONIZATION_REPORT.json
+!FINAL_DATASETS/CLIMATE_HEALTH_LINKAGE/LINKAGE_MANIFEST.json
+
+# Climate zarr stores
+*.zarr/
+
+# Binary model artifacts
+*.pkl
+*.joblib
+*.model
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.parquet
+
+# ===== Pipeline Outputs (regenerable) =====
+mcd_outputs/stage1/
+mcd_outputs/stage2/
+mcd_outputs/stage3/
+mcd_outputs/sensitivity/
+mcd_outputs/figures/
+mcd_outputs/tables/
+mcd_outputs/logs/
+
+# ===== Archives (large, not for git) =====
+_archive/
+_legacy_data_archive/
+
+# ===== Generated Reports =====
+FINAL_DATASETS/YDATA_REPORTS/**/*.html
+
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# ===== Images (keep SVGs for publication) =====
+*.png
+*.jpg
+*.jpeg
+*.tiff
+!mcd_publication/figures/*.svg
+!mcd_publication/figures/*.pdf
+
+# ===== Logs =====
+*.log
+
+# ===== Environment =====
+.env
+.venv
+env/
+venv/
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Claude Code =====
+.claude/
+
+# ===== Temporary =====
+*.tmp
+*.temp
+*.cache
+.cache/

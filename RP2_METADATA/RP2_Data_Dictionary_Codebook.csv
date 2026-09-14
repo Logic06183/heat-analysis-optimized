@@ -1,0 +1,97 @@
+Variable Name,Label,Description,Domain,Organ System,Data Type,Unit,Allowable Values / Codes,Min,Max,Mean,Median,Non-Null Count,Missing Count,Missing %,Clinical Threshold,Log Transform,Notes
+study_source,Study Source,Identifier for the originating clinical study/trial,Identifier,,String,,"JHB_ACTG_015 | JHB_ACTG_016 | JHB_ACTG_017 | JHB_ACTG_018 | JHB_ACTG_019 | JHB_ACTG_021 | JHB_Aurum_009 | JHB_DPHRU_013 | JHB_DPHRU_053 | JHB_EZIN_025 | JHB_Ezin_002 | JHB_SCHARP_004 | JHB_SCHARP_006 | JHB_VIDA_007 | JHB_VIDA_008 | JHB_WRHI_001 | JHB_WRHI_003",,,,,62154,0,0.0,,,17 study arms from 14 independent Johannesburg clinical studies
+patient_id,Patient ID,Pseudonymised unique participant identifier,Identifier,,String,,Alphanumeric codes,,,,,62154,0,0.0,,,12804 unique patients; used for GroupKFold cross-validation to prevent patient leakage
+visit_date,Visit Date,Date of clinical visit (YYYY-MM-DD),Identifier,,Date (ISO 8601),,YYYY-MM-DD,2003-10-20,2021-12-09,,,58903,3251,5.2,,,
+year,Year,Calendar year of visit,Identifier,,Integer,,2003-2021,2003,2021,2016.34,2017.0,49585,12569,20.2,,,Extracted from visit_date
+month,Month,Calendar month of visit (1=Jan to 12=Dec),Identifier,,Integer,,1-12,1,12,6.91,8.0,49585,12569,20.2,,,Extracted from visit_date
+season,Season,Southern hemisphere meteorological season,Identifier,,Categorical,,"Summer | Autumn | Winter | Spring",,,,,49585,12569,20.2,,,Summer=Dec-Feb; Autumn=Mar-May; Winter=Jun-Aug; Spring=Sep-Nov
+latitude,Latitude,Study site latitude (WGS84),Geospatial,,Float,Decimal degrees,,-26.2041,-26.2041,-26.20,-26.20,62154,0,0.0,,,Johannesburg coordinates; constant across dataset
+longitude,Longitude,Study site longitude (WGS84),Geospatial,,Float,Decimal degrees,,27.9394,28.0473,28.04,28.05,62154,0,0.0,,,Two distinct site locations
+city,City,City name where study was conducted,Geospatial,,String,,Johannesburg,,,,,62154,0,0.0,,,All records from Johannesburg
+age_years,Age (Years),Age of participant at time of visit,Demographic,,Float,years,,13.0,76.0,35.01,34.0,39129,23025,37.0,,,
+sex,Sex,Biological sex of participant,Demographic,,Categorical,,"Female | Male | Unknown | Not available",,,,,43733,18421,29.6,,,Female=28565 (65.3%); Male=14927 (34.1%); Unknown=240; Not available=1
+race,Race/Ethnicity,Self-reported race or ethnicity,Demographic,,Categorical,,"African Heritage | Asian | Black | Caucasian | Coloured | Other | White",,,,,14957,47197,75.9,,,Only available for subset of studies
+hiv_status,HIV Status,HIV infection status at visit,Demographic,,Categorical,,"Positive | Negative | Unknown",,,,,59919,2235,3.6,,,Positive=42174 (70.4%); Negative=1359 (2.3%); Unknown=16386 (27.3%)
+hiv_positive,HIV Positive (Binary),Binary HIV status indicator (1=positive; 0=negative),Demographic,,Binary,,0 | 1,0,1,0.94,1.0,44897,17257,27.8,,,
+on_art,On Antiretroviral Therapy,Whether participant is on ART,Demographic,,Integer,,0-8,0,8,0.77,1.0,42063,20091,32.3,,,0=Not on ART; 1=On ART; higher values may encode ART regimen
+virally_suppressed,Virally Suppressed,Whether HIV viral load is suppressed below detection limit,Immunological,,Binary,,0 | 1,,,,,0,62154,100.0,,,Not populated in this dataset version
+cd4_count,CD4 Count,CD4+ T-lymphocyte count,Biomarker,Immunological,Float,cells/uL,,0.07,9999.0,536.76,340.0,18840,43314,69.7,50.0,No,Primary immunological marker
+viral_load,HIV Viral Load,Plasma HIV-1 RNA copies,Biomarker,Immunological,Float,copies/mL,,0.0,99999999.0,1030233.80,75.0,25404,36750,59.1,1000.0,Yes,Use log10_viral_load for analysis; ACTG_016 and WRHI_003 placeholder codes removed
+viral_load_undetectable,Viral Load Undetectable,Binary indicator for undetectable viral load,Immunological,,Binary,,0 | 1,0,1,0.61,1.0,26797,35357,56.9,,,1=Below detection limit
+log10_viral_load,Log10 Viral Load,Base-10 logarithm of HIV viral load,Biomarker,Immunological,Float,log10(copies/mL),,0.0,8.0,2.48,1.59,18421,43733,70.4,,No,Derived from viral_load
+viral_load_wrhi003_category,Viral Load WRHI003 Category,Legacy WRHI_003 viral load category codes,Immunological,,Float,,,,,,,0,62154,100.0,,,Not populated; original placeholder codes removed during QC
+hemoglobin,Hemoglobin,Blood hemoglobin concentration,Biomarker,Body Composition / Hematological,Float,g/dL,,1.7,153.2,13.54,13.6,19796,42358,68.2,1.0,No,
+hematocrit,Hematocrit,Proportion of blood volume occupied by red blood cells,Biomarker,Body Composition / Hematological,Float,%,,0.144,60.3,10.53,0.44,17514,44640,71.8,3.0,No,Mixed units across studies (fraction and percentage)
+rbc_count,Red Blood Cell Count,Red blood cell count,Biomarker,Body Composition / Hematological,Float,x10^12/L,,,,,,0,62154,100.0,,,Not populated in this dataset version
+wbc_count,White Blood Cell Count,White blood cell count,Biomarker,Inflammatory,Float,x10^9/L,,,,,,0,62154,100.0,,,Not populated in this dataset version
+platelet_count,Platelet Count,Blood platelet count,Biomarker,Body Composition / Hematological,Float,x10^9/L,,,,,,0,62154,100.0,,,Not populated in this dataset version
+mcv,Mean Corpuscular Volume,Average volume of red blood cells,Biomarker,Body Composition / Hematological,Float,fL,,57.0,124.1,90.79,91.1,9441,52713,84.8,,,
+mch,Mean Corpuscular Hemoglobin,Average hemoglobin content per red blood cell,Biomarker,Body Composition / Hematological,Float,pg,,15.2,42.6,29.54,29.7,9039,53115,85.5,,,
+mchc,Mean Corpuscular Hemoglobin Concentration,Average hemoglobin concentration in red blood cells,Biomarker,Body Composition / Hematological,Float,g/dL,,26.7,38.1,32.47,32.5,9039,53115,85.5,,,
+rdw,Red Cell Distribution Width,Variation in red blood cell size,Biomarker,Body Composition / Hematological,Float,%,,10.8,35.9,14.56,14.2,9037,53117,85.5,,,
+neutrophils_pct,Neutrophils (%),Percentage of neutrophils in white blood cell differential,Biomarker,Inflammatory,Float,%,,,,,,0,62154,100.0,,,Not populated in this dataset version
+lymphocytes_pct,Lymphocytes (%),Percentage of lymphocytes in white blood cell differential,Biomarker,Immunological,Float,%,,,,,,0,62154,100.0,,,Not populated in this dataset version
+monocytes_pct,Monocytes (%),Percentage of monocytes in white blood cell differential,Biomarker,Inflammatory,Float,%,,,,,,0,62154,100.0,,,Not populated in this dataset version
+eosinophils_pct,Eosinophils (%),Percentage of eosinophils in white blood cell differential,Biomarker,Inflammatory,Float,%,,,,,,0,62154,100.0,,,Not populated in this dataset version
+basophils_pct,Basophils (%),Percentage of basophils in white blood cell differential,Biomarker,Inflammatory,Float,%,,,,,,0,62154,100.0,,,Not populated in this dataset version
+fasting_glucose,Fasting Glucose,Fasting plasma glucose level,Biomarker,Metabolic,Float,mg/dL,,0.2,345.0,29.75,5.1,7227,54927,88.4,18.0,No,Units standardised to mg/dL; some values appear in mmol/L range
+log10_fasting_glucose,Log10 Fasting Glucose,Base-10 logarithm of fasting glucose,Biomarker,Metabolic,Float,log10(mg/dL),,,,,,0,62154,100.0,,,Not populated in this dataset version
+total_cholesterol,Total Cholesterol,Total serum cholesterol,Biomarker,Lipid,Float,mg/dL,,1.12,363.0,53.12,4.81,7510,54644,87.9,20.0,No,Mixed units across studies (mg/dL and mmol/L)
+hdl_cholesterol,HDL Cholesterol,High-density lipoprotein cholesterol,Biomarker,Lipid,Float,mg/dL,,0.0,368.0,15.02,1.5,7508,54646,87.9,10.0,No,Mixed units across studies (mg/dL and mmol/L)
+ldl_cholesterol,LDL Cholesterol,Low-density lipoprotein cholesterol,Biomarker,Lipid,Float,mg/dL,,0.0,417.0,31.21,2.9,7484,54670,88.0,15.0,No,Mixed units across studies (mg/dL and mmol/L)
+triglycerides,Triglycerides,Serum triglyceride level,Biomarker,Lipid,Float,mg/dL,,0.05,1759.77,41.65,1.24,6591,55563,89.4,25.0,Yes,Mixed units across studies (mg/dL and mmol/L)
+creatinine,Serum Creatinine,Serum creatinine level for renal function assessment,Biomarker,Renal,Float,umol/L,,0.32,499.0,38.3,49.0,7930,54224,87.2,26.5,No,~0.3 mg/dL clinical threshold
+creatinine_clearance,Creatinine Clearance,Estimated creatinine clearance rate,Biomarker,Renal,Float,mL/min,,28.0,1320.0,114.62,108.0,2527,59627,95.9,15.0,No,
+bun,Blood Urea Nitrogen,Blood urea nitrogen level,Biomarker,Renal,Float,mmol/L,,0.38,112.0,5.57,4.4,8079,54075,87.0,,,
+alt,Alanine Aminotransferase (ALT),Liver enzyme ALT/SGPT,Biomarker,Hepatic,Float,U/L,,1.1,1646.0,29.04,21.0,10357,51797,83.3,10.0,Yes,
+ast,Aspartate Aminotransferase (AST),Liver enzyme AST/SGOT,Biomarker,Hepatic,Float,U/L,,2.0,1471.0,32.08,26.0,10356,51798,83.3,10.0,Yes,
+alp,Alkaline Phosphatase (ALP),Liver and bone enzyme ALP,Biomarker,Hepatic,Float,U/L,,,,,,0,62154,100.0,,,Not populated in this dataset version
+total_bilirubin,Total Bilirubin,Total serum bilirubin,Biomarker,Hepatic,Float,umol/L,,0.0,94.0,3.02,2.6,9047,53107,85.4,,,
+albumin,Serum Albumin,Serum albumin concentration,Biomarker,Renal,Float,g/L,,1.17,71.3,38.99,42.0,9058,53096,85.4,5.0,No,
+total_protein,Total Protein,Total serum protein concentration,Biomarker,Hepatic,Float,g/L,,,,,,0,62154,100.0,,,Not populated in this dataset version
+sodium,Sodium,Serum sodium level,Biomarker,Renal,Float,mmol/L,,110.0,150.0,136.74,137.0,8693,53461,86.0,,,
+potassium,Potassium,Serum potassium level,Biomarker,Renal,Float,mmol/L,,1.05,6.8,4.29,4.3,8108,54046,87.0,,,
+calcium,Calcium,Serum calcium level,Biomarker,Renal,Float,mmol/L,,1.6,10.8,2.79,2.25,8043,54111,87.1,,,
+systolic_bp,Systolic Blood Pressure,Systolic blood pressure measurement,Biomarker,Cardiovascular,Float,mmHg,,72.0,258.5,121.78,121.0,38965,23189,37.3,5.0,No,
+diastolic_bp,Diastolic Blood Pressure,Diastolic blood pressure measurement,Biomarker,Cardiovascular,Float,mmHg,,7.0,662.0,77.29,77.0,38966,23188,37.3,3.0,No,
+heart_rate,Heart Rate,Resting heart rate,Biomarker,Cardiovascular,Float,bpm,,6.0,364.0,75.01,75.0,38454,23700,38.1,5.0,No,
+temperature,Body Temperature,Body temperature at clinical visit,Vital Sign,,Float,degrees C,,,,,,0,62154,100.0,,,Not populated in this dataset version
+respiratory_rate,Respiratory Rate,Resting respiratory rate,Vital Sign,,Float,breaths/min,,10.0,99.0,16.85,17.0,24657,37497,60.3,,,
+oxygen_saturation,Oxygen Saturation (SpO2),Peripheral oxygen saturation by pulse oximetry,Vital Sign,,Float,%,,17.0,100.0,97.83,98.0,16058,46096,74.2,,,
+height_m,Height,Standing height in metres,Anthropometric,,Float,m,,1.01,1.94,1.63,1.63,539,61615,99.1,,,Sparse; only available for DPHRU studies
+weight_kg,Weight,Body weight in kilograms,Anthropometric,,Float,kg,,34.0,200.0,71.35,68.6,19338,42816,68.9,,,
+bmi,Body Mass Index,Body mass index (weight_kg / height_m^2),Biomarker,Body Composition,Float,kg/m2,,14.0,70.03,26.83,25.45,8670,53484,86.1,1.0,No,
+waist_circumference,Waist Circumference,Waist circumference at narrowest point,Biomarker,Body Composition,Float,cm,,0.6,9150.0,321.68,1.06,1567,60587,97.5,5.0,No,Mixed units (cm and m) across studies
+temp_mean_c,Mean Temperature (Day of Visit),ERA5 reanalysis 2m mean air temperature on visit date,Climate,,Float,degrees C,,4.98,26.32,14.50,14.00,888,61266,98.6,,,Sourced from ERA5 reanalysis; Johannesburg grid cell
+temp_max_c,Maximum Temperature (Day of Visit),ERA5 reanalysis 2m maximum air temperature on visit date,Climate,,Float,degrees C,,9.54,36.24,21.97,22.59,888,61266,98.6,,,
+temp_min_c,Minimum Temperature (Day of Visit),ERA5 reanalysis 2m minimum air temperature on visit date,Climate,,Float,degrees C,,-1.48,19.46,8.11,7.46,888,61266,98.6,,,
+temp_range_c,Temperature Range (Day of Visit),Daily temperature range (max - min),Climate,,Float,degrees C,,2.95,21.44,13.86,14.55,888,61266,98.6,,,Diurnal temperature range
+temp_lag1d,Temperature Lag 1 Day,Mean temperature averaged over previous 1 day,Climate,,Float,degrees C,,4.98,26.32,14.50,14.00,888,61266,98.6,,,ERA5 reanalysis moving average
+temp_lag3d,Temperature Lag 3 Days,Mean temperature averaged over previous 3 days,Climate,,Float,degrees C,,6.53,25.40,14.58,14.11,888,61266,98.6,,,ERA5 reanalysis moving average
+temp_lag7d,Temperature Lag 7 Days,Mean temperature averaged over previous 7 days,Climate,,Float,degrees C,,6.89,24.44,14.67,14.40,888,61266,98.6,,,ERA5 reanalysis moving average; primary exposure variable for XGBoost-SHAP analysis
+temp_lag14d,Temperature Lag 14 Days,Mean temperature averaged over previous 14 days,Climate,,Float,degrees C,,7.85,22.65,14.85,14.64,888,61266,98.6,,,ERA5 reanalysis moving average
+temp_lag21d,Temperature Lag 21 Days,Mean temperature averaged over previous 21 days,Climate,,Float,degrees C,,8.26,21.93,14.97,15.07,888,61266,98.6,,,ERA5 reanalysis moving average
+temp_lag30d,Temperature Lag 30 Days,Mean temperature averaged over previous 30 days,Climate,,Float,degrees C,,8.54,21.77,15.18,15.58,888,61266,98.6,,,ERA5 reanalysis moving average; maps to era5_temp_lag30d_c in pipeline
+temp_variability_7d,Temperature Variability (7-day),Standard deviation of daily mean temperature over previous 7 days,Climate,,Float,degrees C,,0.32,6.18,1.39,1.23,888,61266,98.6,,,Measure of short-term temperature instability
+temp_variability_30d,Temperature Variability (30-day),Standard deviation of daily mean temperature over previous 30 days,Climate,,Float,degrees C,,0.94,4.56,1.96,1.79,888,61266,98.6,,,Measure of medium-term temperature instability
+apparent_temp,Apparent Temperature,Perceived temperature accounting for humidity and wind (Steadman index),Climate,,Float,degrees C,,8.22,53.47,26.83,27.61,888,61266,98.6,,,Heat index combining temperature and humidity
+temp_anomaly,Temperature Anomaly,Deviation of visit-day temperature from long-term monthly mean,Climate,,Float,degrees C,,-10.62,7.41,-0.67,-0.68,888,61266,98.6,,,Positive = warmer than average; negative = cooler
+heat_wave_day,Heat Wave Day,Binary indicator for heat wave conditions on visit date,Climate,,Binary,,0 | 1,0,1,0.02,0.0,888,61266,98.6,,,1 = heat wave day (>=3 consecutive days above 90th percentile)
+heat_stress_category,Heat Stress Category,Categorical heat stress level based on apparent temperature,Climate,,Categorical,,"Cold | Comfortable | Warm | Hot | Extreme Heat",,,,,888,61266,98.6,,,Derived from apparent temperature thresholds
+fasting_insulin,Fasting Insulin,Fasting serum insulin level,Biomarker,Metabolic,Float,uIU/mL,,1.2,160.0,10.37,8.3,1713,60441,97.2,5.0,Yes,
+hba1c,HbA1c,Glycated haemoglobin (long-term glucose control),Biomarker,Metabolic,Float,%,,3.9,20.5,6.06,5.8,985,61169,98.4,0.5,No,Reflects average blood glucose over ~3 months
+hs_crp,High-Sensitivity C-Reactive Protein,Systemic inflammation marker,Biomarker,Inflammatory,Float,mg/L,,0.3,275.3,7.11,3.6,955,61199,98.5,1.0,Yes,Log-transformed for analysis
+who_glycemic_status,WHO Glycemic Status,WHO-defined glycemic classification,Biomarker,Metabolic,Categorical,,"NGT | IFG | IGT | T2D",,,,,981,61173,98.4,,,NGT=Normal Glucose Tolerance; IFG=Impaired Fasting Glucose; IGT=Impaired Glucose Tolerance; T2D=Type 2 Diabetes
+hip_circumference,Hip Circumference,Hip circumference at widest point,Biomarker,Body Composition,Float,cm,,0.1,9850.0,394.28,1.18,1567,60587,97.5,5.0,No,Mixed units (cm and m) across studies
+waist_hip_ratio,Waist-Hip Ratio,Ratio of waist to hip circumference,Biomarker,Body Composition,Float,ratio,,0.005,8.63,0.88,0.86,1567,60587,97.5,0.05,No,Central adiposity indicator
+total_fat_mass,Total Fat Mass,Total body fat mass from DXA scan,Biomarker,Body Composition,Float,kg,,5.55,67095.0,11425.88,46.69,1728,60426,97.2,2.0,No,DXA-derived; mixed units (kg and g) across studies
+total_lean_mass,Total Lean Mass,Total body lean mass from DXA scan,Biomarker,Body Composition,Float,kg,,25.3,58472.5,17265.84,63.9,1728,60426,97.2,,No,DXA-derived; mixed units (kg and g) across studies
+body_fat_percent,Body Fat Percentage,Percentage of total body mass that is fat from DXA,Biomarker,Body Composition,Float,%,,13.33,58.75,36.23,37.67,1728,60426,97.2,3.0,No,DXA-derived
+android_fat_percent,Android Fat Percentage,Percentage of fat in the android (abdominal) region from DXA,Biomarker,Body Composition,Float,%,,3.11,13.87,7.97,7.86,954,61200,98.5,,,DXA-derived; measure of central/visceral adiposity
+fat_mass_index,Fat Mass Index,Fat mass normalised for height (total_fat_mass / height_m^2),Biomarker,Body Composition,Float,kg/m2,,1.76,28.41,10.34,9.6,952,61202,98.5,1.0,No,DXA-derived
+asmi,Appendicular Skeletal Muscle Index,Appendicular lean mass / height^2 from DXA,Biomarker,Body Composition,Float,kg/m2,,3.02,8.69,4.93,4.91,952,61202,98.5,,,DXA-derived; indicator of sarcopenia
+grip_strength,Grip Strength,Hand grip dynamometry (average of best attempts),Biomarker,Body Composition,Float,kg,,9.33,80.67,32.31,30.0,1522,60632,97.6,,,Functional strength measure
+epworth_sleepiness_score,Epworth Sleepiness Score,Self-reported daytime sleepiness questionnaire score,Other,,Integer,,0-24,0,24,5.94,5.0,999,61155,98.4,,,0-10=Normal; 11-14=Mild; 15-17=Moderate; 18-24=Severe sleepiness
+ses_score,Socioeconomic Status Score,Composite socioeconomic status score,Other,,Float,,0-32,0,32,6.6,7.0,1621,60533,97.4,,,Asset-based composite score
+asset_index,Asset Index,Household asset ownership index,Other,,Float,,0-12,0,12,8.72,9.0,1012,61142,98.4,,,Count of household assets owned
+vitamin_d,Vitamin D,Serum 25-hydroxyvitamin D level,Biomarker,Metabolic,Float,nmol/L,,16.53,124.25,61.61,60.76,433,61721,99.3,,,Sparse coverage; seasonal variation relevant to heat-health analysis
