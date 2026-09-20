@@ -22,6 +22,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 import xgboost as xgb
+from joblib import Parallel, delayed
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import GroupKFold
 
@@ -97,19 +98,38 @@ def prepare_features_and_target(
     if cat_cols:
         X = pd.get_dummies(X, columns=cat_cols, drop_first=True, dtype=float)
 
+    # Warn if any feature column has high NaN prevalence before imputation
+    nan_pct = X.isna().mean()
+    high_nan = nan_pct[nan_pct > 0.2]
+    if not high_nan.empty:
+        logger.warning(
+            "  %s: high NaN prevalence in features (>20%%) — median imputation may be unreliable: %s",
+            target_col,
+            {c: f"{v:.1%}" for c, v in high_nan.items()},
+        )
+
     # Fill remaining NaN in features with column median
-    for col in X.columns:
-        if X[col].isna().any():
-            X[col] = X[col].fillna(X[col].median())
+    X = X.fillna(X.median(numeric_only=True))
+
+    # float32: XGBoost uses float32 internally; halves memory bandwidth
+    X = X.astype("float32")
 
     groups = subset[config.PATIENT_ID_COLUMN].astype(str)
+
+    n_patients = groups.nunique()
+    if n_patients < config.CV_FOLDS:
+        raise ValueError(
+            f"Biomarker '{target_col}' has only {n_patients} unique patients "
+            f"but GroupKFold requires ≥ {config.CV_FOLDS}. "
+            "Cannot create non-overlapping patient folds."
+        )
 
     logger.info(
         "  %s: %d samples, %d features, %d patients",
         target_col,
         len(X),
         X.shape[1],
-        groups.nunique(),
+        n_patients,
     )
     return X, y, groups
 
@@ -228,26 +248,26 @@ def bootstrap_train(
     feature_names = X_orig.columns.tolist()
     patient_ids = groups_orig.unique()
 
-    shap_arrays = []
+    # Pre-generate all bootstrap seeds for reproducibility
+    rep_seeds = rng.randint(0, 2**31, size=n_replicates)
 
-    for i in range(n_replicates):
-        # Resample patients with replacement
-        boot_patients = rng.choice(patient_ids, size=len(patient_ids), replace=True)
+    def _one_replicate(rep_seed: int) -> np.ndarray:
+        rep_rng = np.random.RandomState(rep_seed)
+        boot_patients = rep_rng.choice(patient_ids, size=len(patient_ids), replace=True)
         boot_mask = groups_orig.isin(boot_patients)
-
         X_boot = X_orig.loc[boot_mask]
         y_boot = y_orig.loc[boot_mask]
-
-        # Train on resampled data
-        model = xgb.XGBRegressor(**config.XGBOOST_PARAMS)
+        # XGBoost uses 1 thread per worker to avoid over-subscription
+        params = {**config.XGBOOST_PARAMS, "n_jobs": 1}
+        model = xgb.XGBRegressor(**params)
         model.fit(X_boot, y_boot, verbose=False)
+        return compute_shap_values(model, X_orig)
 
-        # Compute SHAP on original data
-        sv = compute_shap_values(model, X_orig)
-        shap_arrays.append(sv)
-
-        if (i + 1) % 10 == 0:
-            logger.info("  Bootstrap replicate %d/%d complete", i + 1, n_replicates)
+    n_jobs = min(n_replicates, config.N_PARALLEL_JOBS)
+    shap_arrays = Parallel(n_jobs=n_jobs, backend="loky")(
+        delayed(_one_replicate)(s) for s in rep_seeds
+    )
+    logger.info("  %d bootstrap replicates complete (parallel, %d workers)", n_replicates, n_jobs)
 
     return shap_arrays, X_orig, feature_names
 
@@ -306,6 +326,9 @@ def train_biomarker(
     # Step 6: Save results
     saved = save_shap_results(primary_shap, X, biomarker.column, output_dir)
 
+    # Save trained model for Stage 2 interaction detection
+    model.save_model(output_dir / "model.ubj")
+
     # Save lag summary
     lag_summary.to_csv(output_dir / "lag_response_summary.csv", index=False)
 
@@ -320,18 +343,28 @@ def train_biomarker(
         output_dir / "bootstrap_mean_shap.csv", header=True
     )
 
+    mean_r2 = cv_metrics["mean_r2"]
+    model_adequate = bool(mean_r2 >= 0.0)  # cast: numpy.bool_ → Python bool for JSON
+    if not model_adequate:
+        logger.warning(
+            "  CAUTION: %s R²=%.3f — model worse than mean predictor; "
+            "lag attributions unreliable for this biomarker.",
+            biomarker.column, mean_r2,
+        )
+
     results = {
         "biomarker": biomarker.column,
         "cv_metrics": cv_metrics,
         "bootstrap_stability": boot_summary.get("ranking_stability"),
         "dominant_temporal_window": temporal_window,
         "n_samples": len(X),
+        "model_adequate": model_adequate,
         "output_dir": str(output_dir),
     }
 
     logger.info(
         "  Complete: R²=%.4f, window=%s, stability=%.3f",
-        cv_metrics["mean_r2"],
+        mean_r2,
         temporal_window,
         boot_summary.get("ranking_stability", 0),
     )

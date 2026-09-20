@@ -38,6 +38,8 @@ def compute_shap_values(
     model: xgb.XGBRegressor,
     X: pd.DataFrame,
     feature_perturbation: str = config.SHAP_FEATURE_PERTURBATION,
+    background_samples: int | None = config.SHAP_BACKGROUND_SAMPLES,
+    seed: int = config.BOOTSTRAP_RANDOM_SEED,
 ) -> np.ndarray:
     """Compute interventional TreeSHAP values.
 
@@ -49,18 +51,29 @@ def compute_shap_values(
         Feature matrix (same features as training).
     feature_perturbation : str
         "interventional" (default) or "tree_path_dependent".
+    background_samples : int or None
+        Number of rows to use as background for marginalisation.
+        None uses the full dataset. 500 gives near-identical results
+        at ~10x lower SHAP cost (diminishing returns past ~200).
+    seed : int
+        Random seed for background subsampling.
 
     Returns
     -------
     np.ndarray
         SHAP values array of shape (n_samples, n_features).
     """
+    if background_samples is not None and len(X) > background_samples:
+        background = shap.utils.sample(X, background_samples, random_state=seed)
+    else:
+        background = X
+
     explainer = shap.TreeExplainer(
         model,
-        data=X,
+        data=background,
         feature_perturbation=feature_perturbation,
     )
-    shap_values = explainer.shap_values(X)
+    shap_values = explainer.shap_values(X, check_additivity=False)
     return shap_values
 
 
@@ -114,9 +127,12 @@ def aggregate_bootstrap_shap(
 
     n_features = rankings.shape[1]
     if n_reps > 1 and n_features > 1:
-        mean_ranks = rankings.mean(axis=0)
-        ss_total = np.sum((mean_ranks - mean_ranks.mean()) ** 2)
-        w = (12 * ss_total) / (n_reps**2 * (n_features**3 - n_features))
+        # Kendall's W: uses rank SUMS (not mean ranks) per feature
+        # W = 12S / (m²(n³-n)), where S = Σ(R_j - R_mean)²
+        # R_j = sum of ranks across all m judges for feature j
+        rank_sums = rankings.sum(axis=0)
+        S = np.sum((rank_sums - rank_sums.mean()) ** 2)
+        w = (12 * S) / (n_reps**2 * (n_features**3 - n_features))
         w = min(max(w, 0.0), 1.0)
     else:
         w = 1.0

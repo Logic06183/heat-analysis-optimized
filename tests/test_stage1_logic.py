@@ -35,9 +35,7 @@ from mcd_pipeline.stage0_data_prep.biomarker_definitions import (
     BiomarkerSpec,
     get_available_biomarkers,
 )
-from mcd_pipeline.stage0_data_prep.build_analysis_dataset import (
-    build_analysis_dataset,
-)
+from mcd_pipeline.stage0_data_prep.build_analysis_dataset import build_analysis_dataset
 from mcd_pipeline.stage0_data_prep.feature_engineering import engineer_features
 from mcd_pipeline.stage1_lag_profiling.xgboost_trainer import (
     _build_feature_columns,
@@ -62,12 +60,11 @@ from mcd_pipeline.stage1_lag_profiling.lag_response import (
 
 @pytest.fixture(scope="module")
 def full_engineered_df():
-    """Build the complete engineered dataset from real data.
+    """Build the complete engineered dataset from TIDY inputs.
 
     Module-scoped: built once, shared across all tests.
     """
     df = build_analysis_dataset()
-
     biomarker_cols = [
         b.column for b in get_available_biomarkers().values()
         if b.column and b.column in df.columns
@@ -321,33 +318,33 @@ class TestSHAPValues:
             f"SHAP shape {primary_shap.shape} != X shape {X.shape}"
         )
 
-    def test_shap_additivity(self, trained_model_and_metrics, prepared_data, primary_shap):
+    def test_shap_additivity(self, trained_model_and_metrics, prepared_data):
         """SHAP values must sum to (prediction - expected_value) for each sample.
 
         This is the fundamental SHAP additivity property:
             f(x) = E[f(x)] + sum(SHAP_i)
+
+        Uses the same background sample as the pipeline (config.SHAP_BACKGROUND_SAMPLES)
+        so that SHAP values and expected_value come from the same explainer.
         """
+        import shap as shap_lib
         model, _ = trained_model_and_metrics
         X, _, _ = prepared_data
 
-        predictions = model.predict(X)
-        expected_value = predictions.mean()  # Approximate E[f(x)]
-
-        # For each sample: prediction ~= expected_value + sum(SHAP)
-        shap_sum = primary_shap.sum(axis=1)
-        reconstructed = expected_value + shap_sum
-
-        # Use the explainer's expected value for exact check
-        import shap
-        explainer = shap.TreeExplainer(
-            model, data=X,
+        # Use the same background sampling as the pipeline
+        background = shap_lib.utils.sample(
+            X, config.SHAP_BACKGROUND_SAMPLES, random_state=42
+        )
+        explainer = shap_lib.TreeExplainer(
+            model, data=background,
             feature_perturbation=config.SHAP_FEATURE_PERTURBATION,
         )
-        exact_expected = explainer.expected_value
+        shap_values = explainer.shap_values(X, check_additivity=False)
 
-        reconstructed_exact = exact_expected + shap_sum
+        predictions = model.predict(X)
+        reconstructed = explainer.expected_value + shap_values.sum(axis=1)
         np.testing.assert_allclose(
-            predictions, reconstructed_exact, atol=0.01,
+            predictions, reconstructed, atol=0.01,
             err_msg="SHAP additivity violated: prediction != expected_value + sum(SHAP)"
         )
 

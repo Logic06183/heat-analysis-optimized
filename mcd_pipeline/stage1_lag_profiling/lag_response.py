@@ -16,10 +16,16 @@ biomarker; analogous to a DLNM lag-response curve but heterogeneous
 across individuals rather than population-averaged"
 """
 
+import re
+
 import numpy as np
 import pandas as pd
 
+import logging
+
 from mcd_pipeline import config
+
+logger = logging.getLogger(__name__)
 
 
 def extract_lag_shap_profile(
@@ -56,22 +62,33 @@ def summarise_lag_response(lag_shap_df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame
         Columns: lag_day, mean_abs_shap, ci_lower, ci_upper, pct_positive
     """
+    if lag_shap_df.empty:
+        logger.warning("summarise_lag_response: empty lag SHAP DataFrame — returning empty summary")
+        return pd.DataFrame(columns=["lag_day", "mean_abs_shap", "ci_lower", "ci_upper", "pct_positive"])
+
     rows = []
     for col in lag_shap_df.columns:
-        lag_day = int(col.split("_")[1])
+        # Column format is "lag_{day}" — use regex to avoid fragile split indexing
+        match = re.match(r"lag_(\d+)$", col)
+        if not match:
+            logger.warning("summarise_lag_response: unrecognised column name '%s', skipping", col)
+            continue
+        lag_day = int(match.group(1))
         vals = lag_shap_df[col].dropna()
 
         if len(vals) == 0:
             continue
 
         abs_vals = vals.abs()
-        # Bootstrap CI on mean |SHAP|
+        # Bootstrap CI on mean |SHAP|.
+        # Seed from config so all CI computations are reproducible under the
+        # same global seed without re-seeding on each iteration (which would
+        # make the sequence fragile to iteration count changes).
         boot_means = []
-        rng = np.random.RandomState(42)
+        rng = np.random.RandomState(config.BOOTSTRAP_RANDOM_SEED)
         for _ in range(1000):
             sample = abs_vals.sample(n=len(abs_vals), replace=True, random_state=rng)
             boot_means.append(sample.mean())
-            rng = np.random.RandomState(rng.randint(0, 2**31))
 
         rows.append(
             {

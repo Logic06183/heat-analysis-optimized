@@ -13,11 +13,20 @@ class TestPaths:
     def test_final_datasets_dir_exists(self):
         assert config.FINAL_DATASETS.exists()
 
-    def test_analysis_ready_csv_exists(self):
-        assert config.ANALYSIS_READY_CSV.exists()
+    def test_tidy_datasets_dir_exists(self):
+        assert config.TIDY_DIR.exists()
 
-    def test_climate_linked_dir_exists(self):
-        assert config.CLIMATE_LINKED_DIR.exists()
+    def test_tidy_biomarkers_csv_exists(self):
+        assert config.TIDY_BIOMARKERS_CSV.exists()
+
+    def test_tidy_climate_csv_exists(self):
+        assert config.TIDY_CLIMATE_CSV.exists()
+
+    def test_tidy_demographics_csv_exists(self):
+        assert config.TIDY_DEMOGRAPHICS_CSV.exists()
+
+    def test_tidy_socioeconomic_csv_exists(self):
+        assert config.TIDY_SOCIOECONOMIC_CSV.exists()
 
 
 class TestLagParameters:
@@ -102,8 +111,8 @@ class TestXGBoostParams:
 
 class TestSensitivityFlags:
 
-    def test_sa5_imputation_blocked(self):
-        assert config.SENSITIVITY_ANALYSES["sa5_imputation"] is False
+    def test_sa5_imputation_enabled(self):
+        assert config.SENSITIVITY_ANALYSES["sa5_imputation"] is True  # implemented: returns not_applicable for categorical SES
 
     def test_eight_sensitivity_analyses(self):
         assert len(config.SENSITIVITY_ANALYSES) == 8

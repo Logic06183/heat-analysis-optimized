@@ -85,16 +85,43 @@ def run_stage1(
                 "Skipping %s: %d samples (min %d)", name, n_valid, MIN_SAMPLE_SIZE
             )
 
+    # Resume-aware filtering: skip biomarkers whose outputs are already on
+    # disk (lag_response_summary.csv + cv_metrics.json present in the
+    # per-biomarker directory). Lets multi-hour Stage 1 runs survive restarts
+    # without re-doing completed work.
+    completed = [
+        b for b in eligible
+        if (output_dir / b.column / "lag_response_summary.csv").exists()
+        and (output_dir / b.column / "cv_metrics.json").exists()
+    ]
+    completed_names = {b.column for b in completed}
+    remaining = [b for b in eligible if b.column not in completed_names]
+    if completed:
+        logger.info(
+            "Resume: %d biomarkers already complete on disk; skipping → %s",
+            len(completed),
+            ", ".join(b.column for b in completed),
+        )
+
     logger.info(
-        "=== Stage 1: Processing %d/%d biomarkers ===",
-        len(eligible),
+        "=== Stage 1: Processing %d/%d biomarkers (%d already done) ===",
+        len(remaining),
         len(biomarkers_dict),
+        len(completed),
     )
 
-    results = {}
-    for i, biomarker in enumerate(eligible):
+    results: dict = {
+        # Seed with already-completed biomarkers so the summary is comprehensive.
+        b.column: {
+            "status": "resumed_from_disk",
+            "output_dir": str(output_dir / b.column),
+        }
+        for b in completed
+    }
+
+    for i, biomarker in enumerate(remaining):
         logger.info(
-            "[%d/%d] Processing %s...", i + 1, len(eligible), biomarker.column
+            "[%d/%d] Processing %s...", i + 1, len(remaining), biomarker.column
         )
         try:
             result = train_biomarker(

@@ -219,9 +219,17 @@ class TestFeatureEngineering:
         assert not missing, f"Missing: {missing}"
 
     def test_lag_feature_mapping(self, engineered_df):
-        if "temp_lag_0d" in engineered_df.columns and "dlnm_lag0_c" in engineered_df.columns:
-            v = engineered_df[["temp_lag_0d", "dlnm_lag0_c"]].dropna()
-            np.testing.assert_array_equal(v["temp_lag_0d"].values, v["dlnm_lag0_c"].values)
+        # The standardised lag feature must equal its source column for the
+        # configured exposure product: ERA5-Land (era5land_temp_lag*d_c) when
+        # RP2_PRIMARY_EXPOSURE=era5_land, otherwise the DLNM-extracted ERA5 lags.
+        source = (
+            "era5land_temp_lag0d_c"
+            if config.PRIMARY_EXPOSURE_SOURCE == "era5_land"
+            else "dlnm_lag0_c"
+        )
+        if "temp_lag_0d" in engineered_df.columns and source in engineered_df.columns:
+            v = engineered_df[["temp_lag_0d", source]].dropna()
+            np.testing.assert_array_equal(v["temp_lag_0d"].values, v[source].values)
 
     def test_no_spurious_nan(self, built_df):
         """Feature engineering should not add NaN to existing columns."""

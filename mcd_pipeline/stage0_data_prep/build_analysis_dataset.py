@@ -39,6 +39,23 @@ def _load_and_pivot_biomarkers() -> pd.DataFrame:
     bio["value"] = pd.to_numeric(bio["value"], errors="coerce")
     bio = bio.dropna(subset=["value"])
 
+    # Apply physiological plausibility caps (set implausible values to NaN)
+    n_capped = 0
+    for biomarker_name, (lo, hi) in config.BIOMARKER_CAPS.items():
+        mask = bio["biomarker"] == biomarker_name
+        out_of_range = mask & ((bio["value"] < lo) | (bio["value"] > hi))
+        n_out = out_of_range.sum()
+        if n_out > 0:
+            logger.warning(
+                "  Capping %d implausible %s values outside [%g, %g]",
+                n_out, biomarker_name, lo, hi,
+            )
+            bio.loc[out_of_range, "value"] = np.nan
+            n_capped += n_out
+    if n_capped:
+        bio = bio.dropna(subset=["value"])
+        logger.info("  Removed %d physiologically implausible values", n_capped)
+
     # Pivot: one column per biomarker
     bio_wide = bio.pivot_table(
         index=["study_source", "patient_id", "visit_date", "latitude", "longitude"],
