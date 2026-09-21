@@ -233,15 +233,32 @@ def build_figure():
             int(np.argmax(_df["mean_abs_shap"].to_numpy()))
         ]))
     _n_edge = sum(1 for pk in _peaks if pk <= 3 or pk >= 21)
+    _peak_of = dict(zip(panels, _peaks))
+    _n_fast = sum(1 for pk in _peaks if pk <= 3)
+    # Haematological and body-composition peak lags are read from the same
+    # summaries as the panels, so these lines cannot contradict the plot.
+    _haem = [bm for bm in ("hematocrit", "hemoglobin") if bm in _peak_of]
+    _body = [bm for bm in ("body_fat_percent", "waist_hip_ratio") if bm in _peak_of]
     bullets = [
-        f"• {_n_edge} of {len(panels)} biomarkers peak at acute (0-3 d) or delayed (21-30 d) lags.",
+        f"• {_n_fast} of {len(panels)} biomarkers peak within 0-3 d; "
+        f"{_n_edge} peak at either edge of the window (0-3 d or 21-30 d).",
         "• Cardiovascular markers show the most symmetrical responses with",
         "  SHAP balanced across positive and negative directions.",
-        "• Haematological markers (Hct, Hb) are dominated by lag 30, consistent",
-        "  with chronic haemoconcentration over sub-acute heat exposures.",
-        "• Body-composition markers track medium-horizon exposure (7-14 d).",
-        "• CI ribbons: 50 bootstrap replicates, 95% percentile interval.",
     ]
+    if _haem:
+        bullets += [
+            "• Haematological markers (Hct, Hb) peak at lag "
+            + "/".join(f"{_peak_of[bm]}" for bm in _haem)
+            + " d, consistent with",
+            "  acute haemoconcentration within days of hot weather.",
+        ]
+    if _body:
+        bullets += [
+            "• Body-composition markers peak at lag "
+            + "/".join(f"{_peak_of[bm]}" for bm in _body)
+            + " d (medium-horizon exposure).",
+        ]
+    bullets += ["• CI ribbons: 50 bootstrap replicates, 95% percentile interval."]
     y = 0.88
     for line in bullets:
         key_ax.text(

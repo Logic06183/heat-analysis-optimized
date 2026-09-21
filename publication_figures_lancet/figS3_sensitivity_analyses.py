@@ -61,7 +61,10 @@ SA_COLUMNS = [
 ]
 
 # 13 retained biomarkers under ERA5-Land (bmi dropped - did not meet retention).
-BIOMARKER_ORDER = [
+# Organ-system display order for the retained panel. Filtered against
+# RETAINED (read from the Stage 3 run) so the figure follows the retention
+# rule in force rather than a hard-coded list.
+_ORGAN_DISPLAY_ORDER = [
     "systolic_bp", "diastolic_bp", "heart_rate",
     "creatinine",
     "hematocrit", "hemoglobin",
@@ -70,6 +73,8 @@ BIOMARKER_ORDER = [
     "ldl_cholesterol",
     "body_fat_percent", "hip_circumference", "waist_hip_ratio",
 ]
+BIOMARKER_ORDER = [bm for bm in _ORGAN_DISPLAY_ORDER if bm in RETAINED] + \
+                  [bm for bm in RETAINED if bm not in _ORGAN_DISPLAY_ORDER]
 
 
 def get_spearman(sa_json: dict, bm: str, locator: tuple):
@@ -311,17 +316,22 @@ def build_figure():
     with open(SENS_DIR / "sa7_hiv_stratified/sa7_summary.json") as fh:
         sa7 = json.load(fh)
     # Schema-tolerant: old (adequate_biomarkers_only nested) vs new (flat) format.
-    # Always restrict to the 13 retained ERA5-Land biomarkers (bmi dropped).
-    retained_13 = {"creatinine","albumin","systolic_bp","diastolic_bp","heart_rate",
-                   "cd4_count","viral_load","ldl_cholesterol","hip_circumference",
-                   "waist_hip_ratio","body_fat_percent","hemoglobin","hematocrit"}
+    # Restricted to the retained panel (RETAINED, from the Stage 3 run).
+    # Biomarkers recorded only in people living with HIV (CD4 count, viral
+    # load) have no HIV-negative stratum and are listed separately rather
+    # than counted as "not modified".
+    retained = set(RETAINED)
+    per_bm = sa7.get("per_biomarker", {})
+    no_comparator = [b for b in BIOMARKER_ORDER
+                     if isinstance(per_bm.get(b), dict) and "hiv_pos_vs_neg" not in per_bm[b]]
     if "adequate_biomarkers_only" in sa7:
         adequate = sa7["adequate_biomarkers_only"]
-        effect_mods = sorted(b for b in adequate["effect_modifiers"] if b in retained_13)
-        not_mod = [b for b in adequate.get("not_modified", []) if b in retained_13]
+        effect_mods = sorted(b for b in adequate["effect_modifiers"] if b in retained)
+        not_mod = [b for b in adequate.get("not_modified", [])
+                   if b in retained and b not in no_comparator]
     else:
-        effect_mods = sorted(b for b in sa7.get("effect_modifiers", []) if b in retained_13)
-        not_mod = sorted(retained_13 - set(effect_mods))
+        effect_mods = sorted(b for b in sa7.get("effect_modifiers", []) if b in retained)
+        not_mod = sorted(retained - set(effect_mods) - set(no_comparator))
 
     ax_d.text(0.0, 1.02,
               "SA4  |  HIV status as effect modifier",
@@ -329,7 +339,7 @@ def build_figure():
               transform=ax_d.transAxes, va="top")
 
     n_effect = len(effect_mods)
-    n_total = n_effect + len(not_mod)
+    n_total = len(BIOMARKER_ORDER)
     # Restrained headline: moderate-weight figure + single descriptor line beneath
     # (was a 26pt display number with text wrapped awkwardly beside it).
     ax_d.text(0.02, 0.925, f"{n_effect} of {n_total}",
@@ -373,9 +383,17 @@ def build_figure():
             fontsize=6.8, color=col,
             transform=ax_d.transAxes, va="top",
         )
+    if no_comparator:
+        ax_d.text(
+            0.0, 0.07,
+            "No HIV-negative comparator: "
+            + ", ".join(BIOMARKER_PRETTY.get(bm, bm) for bm in no_comparator),
+            fontsize=6.6, color="#555555",
+            transform=ax_d.transAxes, va="top",
+        )
 
     ax_d.text(
-        0.0, 0.02,
+        0.0, 0.00,
         "→ motivates HIV-stratified primary analysis.",
         fontsize=6.9, color="#444444", fontstyle="italic",
         transform=ax_d.transAxes, va="top",

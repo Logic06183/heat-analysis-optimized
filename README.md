@@ -65,11 +65,19 @@ The appendix numbers the analyses SA1 to SA14 in the order they appear in the pa
 | SA13 | COVID-19 period exclusion | `mcd_pipeline/sensitivity/sa4_covid_exclusion.py` |
 | SA14 | Clustering without body-composition measures | `publication_figures_lancet/_sa14_anthro/sa14_drop_anthropometrics.py`, with `sa14_results.json`, bootstrap arrays and run log alongside |
 
+Provenance notes, from an audit of outputs against the appendix on 21 September 2026:
+
+- SA6 pools with fixed-effect and DerSimonian-Laird random-effect meta-analysis (`meta_analysis.csv` per biomarker); no Hartung-Knapp adjustment is implemented.
+- SA8 numbers reported in the paper (leave-one-cohort-out, leave-one-biomarker-out, label permutation, multi-seed) come from `rerun_10biomarker_robustness.py` and `rerun_10biomarker_lobo.py`, written to `mcd_outputs_era5_land/diagnostics_10biomarker/`. `sa11_leave_one_cohort_out.py` is the earlier implementation and its output under `sensitivity/sa11_leave_one_cohort_out/` is from the thirteen-biomarker fit.
+- SA12 adjusts for MERRA-2 PM2.5 at the seven lag windows (`extract_merra2_pollution.py`), not for boundary-layer height.
+- SA13 (`sa4_covid_exclusion.py`) drops calendar years 2020 and 2021 and re-runs Stage 1, reporting lag-profile concordance; it does not refit Stage 3.
+- SA3 (`sa6_case_crossover.py`, `sa6b_conditional_logistic_or.py`) reports conditional-logistic odds ratios per degree Celsius within patient-by-month strata.
+
 Runners `run_sas_era5land.py` and `run_remaining_sas.py` batch several of the `mcd_pipeline/sensitivity/` scripts under the ERA5-Land exposure. `sa5_imputation_compare.py` is not reported in the paper. Cluster proportion confidence intervals and the k-selection parsimony diagnostics reported in the appendix run through `run_pipeline.py --revision-cluster-cis` and `--revision-parsimony`.
 
 ## Figures
 
-`publication_figures_lancet/` holds the figure scripts (`fig01_*.py` to `figS7_*.py`, `figS_DAG.py`), their caption text, and the figure files as submitted under `artwork_for_submission/` (SVG, PNG and PDF; regenerated 4 and 18 September 2026 from the ten-biomarker Stage 3 run). The scripts read the retained-biomarker panel and Stage 3 outputs from `mcd_outputs_era5_land/`, which is generated from the clinical data and is not distributed; a few scripts also read small participant-level cache files written by `regenerate_final_figures.py`, which are likewise not in the repository.
+`publication_figures_lancet/` holds the figure scripts (`fig01_*.py` to `figS7_*.py`, `figS_DAG.py`), their caption text, and the figure files as submitted under `artwork_for_submission/` (SVG, PNG and PDF; regenerated 4 and 18 September 2026 from the ten-biomarker Stage 3 run). Supplementary figures are rendered through `_save_artwork_plain.py` (plain tight-bbox save, the form the supplementary set was produced in); main-text figures save at Lancet column width via `_lancet_style.save_at_width`. The scripts read the retained-biomarker panel and Stage 3 outputs from `mcd_outputs_era5_land/`, which is generated from the clinical data and is not distributed; a few scripts also read small participant-level cache files written by `regenerate_final_figures.py`, which are likewise not in the repository.
 
 ## Data
 
