@@ -18,7 +18,7 @@ Three stages:
 2. **Stage 2, effect modification.** SHAP interaction values for each retained biomarker against sex, HIV status, age, socioeconomic covariates and other temperature lags, tested against a permutation null with Benjamini–Hochberg control at q=0·10.
 3. **Stage 3, grouping.** Participant-level SHAP profiles across the retained biomarkers, standardised, reduced by principal components to 85% of variance, and grouped by a Gaussian mixture model (k=3, full covariance, first ten components, seed 42). Stability by 500-resample bootstrap and adjusted Rand index.
 
-Twelve sensitivity analyses are reported in the paper's appendix (SA1 to SA12). Three further analyses were run and are not reported; they are listed below so the code is accounted for.
+Eleven sensitivity analyses are reported in the paper's appendix (SA1 to SA11). Five further analyses were run, or drafted, and are not reported; they are listed below so the code is accounted for.
 
 ## Layout
 
@@ -35,7 +35,7 @@ mcd_pipeline/
   sensitivity/                  alternative specifications (see table below)
   utils/                        ERA5-Land, MODIS and MERRA-2 extraction, reproducibility helpers
 dlnm_r/                         distributed lag non-linear model cross-check (R, dlnm)
-publication_figures_lancet/     figure scripts, captions, final figure files, and SA12
+publication_figures_lancet/     figure scripts, captions, final figure files, and SA11
 tests/                          pytest suite
 RP2_METADATA/                   variable-level codebook (no participant records)
 DOCUMENTATION/, INTEGRATION_SCRIPTS/, mcd_publication/   supporting notes
@@ -46,9 +46,9 @@ Several analyses were run from standalone scripts at the repository root rather 
 
 ## Sensitivity analyses: appendix numbering against script names
 
-The appendix numbers the analyses SA1 to SA12 in the order they appear in the paper. Script names predate that numbering and do not match it: a script called `sa9_*` is not appendix SA9. Read this table, not the file names. Mappings were confirmed against each script's docstring on 21 September 2026.
+The appendix numbers the analyses SA1 to SA11 in the order they appear in the paper. Script names predate that numbering and do not match it: a script called `sa9_*` is not appendix SA9. Read this table, not the file names. Mappings were confirmed against each script's docstring on 21 September 2026.
 
-Six of the reported analyses were pre-specified in the analysis plan (SA1 to SA4, SA10, SA11); the other six were added after the plan was fixed.
+Six of the reported analyses were pre-specified in the analysis plan (SA1 to SA4, SA9, SA10); the other five were added after the plan was fixed.
 
 | Appendix | Analysis | Script(s) |
 |---|---|---|
@@ -60,10 +60,9 @@ Six of the reported analyses were pre-specified in the analysis plan (SA1 to SA4
 | SA6 | Leave-one-cohort-out, leave-one-biomarker-out, label permutation, multi-seed refit | `rerun_10biomarker_robustness.py`; `rerun_10biomarker_lobo.py`; `cement_findings.py`; `cement_findings_lobo.py` |
 | SA7 | Nested cross-validation of hyperparameters | `run_nested_cv_sensitivity.py` |
 | SA8 | Sex-stratified Stage 1 | `run_sa13_sex_stratified.py` |
-| SA9 | Viral load censoring | No standalone script in this repository. |
-| SA10 | Pollution adjustment (MERRA-2 PM2.5) | `mcd_pipeline/sensitivity/sa3_pollution_adjusted.py`; `mcd_pipeline/utils/extract_merra2_pollution.py` |
-| SA11 | COVID-19 period exclusion | `mcd_pipeline/sensitivity/sa4_covid_exclusion.py` |
-| SA12 | Clustering without body-composition measures | `publication_figures_lancet/_sa14_anthro/sa14_drop_anthropometrics.py`, with `sa14_results.json`, bootstrap arrays and run log alongside |
+| SA9 | Pollution adjustment (MERRA-2 PM2.5) | `mcd_pipeline/sensitivity/sa3_pollution_adjusted.py`; `mcd_pipeline/utils/extract_merra2_pollution.py` |
+| SA10 | COVID-19 period exclusion | `mcd_pipeline/sensitivity/sa4_covid_exclusion.py` |
+| SA11 | Clustering without body-composition measures | `publication_figures_lancet/_sa14_anthro/sa14_drop_anthropometrics.py`, with `sa14_results.json`, bootstrap arrays and run log alongside |
 
 Run and not reported in the paper:
 
@@ -73,12 +72,13 @@ Run and not reported in the paper:
 | Within-person case-crossover for CD4 count and viral load (pre-specified) | `mcd_pipeline/sensitivity/sa6_case_crossover.py`; `sa6b_conditional_logistic_or.py` | Temperature was available only on clinic-visit days, leaving 154 (viral load) and 66 (CD4) informative strata; odds ratios per °C were null with wide intervals (0·985, 0·909 to 1·067; 0·976, 0·856 to 1·112). Underpowered. |
 | Per-cohort random-effects meta-analysis of Stage 1 lag profiles | `mcd_pipeline/sensitivity/sa9_per_cohort_meta.py`; `run_pipeline.py --revision-sa9` | Two to five cohorts per biomarker, I² near 100% at most lags; the cohort question is answered by the leave-one-cohort-out refit (SA6). Fixed-effect and DerSimonian-Laird estimates only. |
 | Imputation comparison (KNN, MICE, complete case) | `mcd_pipeline/sensitivity/sa5_imputation_compare.py` | Not part of the reported analysis. |
+| Viral-load censoring check (refits restricted to detectable results) | No script retained. | Not reported. The censoring proportion itself (72·6% of viral-load results at a study-specific substituted value) is reported in the appendix from the harmonised data. |
 
 Provenance notes:
 
 - SA6 numbers in the paper come from `rerun_10biomarker_robustness.py` and `rerun_10biomarker_lobo.py`, written to `mcd_outputs_era5_land/diagnostics_10biomarker/`. `sa11_leave_one_cohort_out.py` is the earlier implementation and its output under `sensitivity/sa11_leave_one_cohort_out/` is from the thirteen-biomarker fit.
-- SA10 adjusts for MERRA-2 PM2.5 at the seven lag windows, not for boundary-layer height.
-- SA11 (`sa4_covid_exclusion.py`) drops calendar years 2020 and 2021 and re-runs Stage 1, reporting lag-profile concordance; it does not refit Stage 3.
+- SA9 adjusts for MERRA-2 PM2.5 at the seven lag windows, not for boundary-layer height.
+- SA10 (`sa4_covid_exclusion.py`) drops calendar years 2020 and 2021 and re-runs Stage 1, reporting lag-profile concordance; it does not refit Stage 3.
 
 Runners `run_sas_era5land.py` and `run_remaining_sas.py` batch several of the `mcd_pipeline/sensitivity/` scripts under the ERA5-Land exposure. Cluster proportion confidence intervals and the k-selection parsimony diagnostics reported in the appendix run through `run_pipeline.py --revision-cluster-cis` and `--revision-parsimony`.
 
