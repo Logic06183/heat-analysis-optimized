@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="538.582677pt" height="657.637795pt" viewBox="0 0 538.582677 657.637795" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-21T13:45:21.302123</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 657.637795 
+L 538.582677 657.637795 
+L 538.582677 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 51.023622 65.19685 
+L 323.149606 65.19685 
+L 323.149606 17.007874 
+L 51.023622 17.007874 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 51.023622 134.929134 
+L 323.149606 134.929134 
+L 323.149606 86.740157 
+L 51.023622 86.740157 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 51.023622 204.661417 
+L 323.149606 204.661417 
+L 323.149606 156.472441 
+L 51.023622 156.472441 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 351.496063 210.330709 
+L 527.244094 210.330709 
+L 527.244094 150.80315 
+L 351.496063 150.80315 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 51.023622 274.393701 
+L 323.149606 274.393701 
+L 323.149606 226.204724 
+L 51.023622 226.204724 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 51.023622 344.125984 
+L 323.149606 344.125984 
+L 323.149606 295.937008 
+L 51.023622 295.937008 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 351.496063 310.110236 
+L 527.244094 310.110236 
+L 527.244094 260.220472 
+L 351.496063 260.220472 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 51.023622 413.858268 
+L 323.149606 413.858268 
+L 323.149606 365.669291 
+L 51.023622 365.669291 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 351.496063 405.070866 
+L 527.244094 405.070866 
+L 527.244094 374.456693 
+L 351.496063 374.456693 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 51.023622 483.590551 
+L 323.149606 483.590551 
+L 323.149606 435.401575 
+L 51.023622 435.401575 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 51.023622 553.322835 
+L 323.149606 553.322835 
+L 323.149606 505.133858 
+L 51.023622 505.133858 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 351.496063 509.669291 
+L 527.244094 509.669291 
+L 527.244094 479.055118 
+L 351.496063 479.055118 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 51.023622 623.055118 
+L 323.149606 623.055118 
+L 323.149606 574.866142 
+L 51.023622 574.866142 
+z
+" clip-path="url(#p5bca967260)" style="fill: #ffffff; stroke: #1a1a1a; stroke-width: 0.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 323.149606 180.566929 
+L 351.496063 180.566929 
+" clip-path="url(#p5bca967260)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 187.086614 285.165354 
+L 351.496063 285.165354 
+" clip-path="url(#p5bca967260)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 323.149606 389.76378 
+L 351.496063 389.76378 
+" clip-path="url(#p5bca967260)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 187.086614 494.362205 
+L 351.496063 494.362205 
+" clip-path="url(#p5bca967260)" style="fill: none; stroke: #1a1a1a; stroke-width: 0.6; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="35.571579" transform="rotate(-0 187.086614 35.571579)">14 Johannesburg study cohorts</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="55.441652" transform="rotate(-0 187.086614 55.441652)">Six research networks, five clinic areas, 2005 to 2022</text>
+   </g>
+   <g id="patch_15">
+    <path d="M 187.086614 65.19685 
+Q 187.086614 75.968504 187.086614 85.957534 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 82.757534 
+L 187.086614 85.957534 
+L 185.486614 82.757534 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="105.322456" transform="rotate(-0 187.086614 105.322456)">9,759 participants harmonised</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="125.173936" transform="rotate(-0 187.086614 125.173936)">Enrolled across the 14 cohorts</text>
+   </g>
+   <g id="patch_16">
+    <path d="M 187.086614 134.929134 
+Q 187.086614 145.700787 187.086614 155.689817 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 152.489817 
+L 187.086614 155.689817 
+L 185.486614 152.489817 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="175.036146" transform="rotate(-0 187.086614 175.036146)">30 biomarkers registered in the codebook</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="194.906219" transform="rotate(-0 187.086614 194.906219)">598,433 harmonised observations across 52 biomarker labels</text>
+   </g>
+   <g id="patch_17">
+    <path d="M 187.086614 204.661417 
+Q 187.086614 215.433071 187.086614 225.422101 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 222.222101 
+L 187.086614 225.422101 
+L 185.486614 222.222101 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 167.297335)">6 not assessed: ESR and CD8 count (too few</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 174.83721)">studies); eGFR (derived from creatinine);</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 182.377085)">high-sensitivity CRP (no harmonised</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 189.91696)">observations); fat mass index and total fat</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 197.456835)">mass (not carried into the pipeline)</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="244.787023" transform="rotate(-0 187.086614 244.787023)">24 biomarkers assessed</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="264.638503" transform="rotate(-0 187.086614 264.638503)">260,166 observations over 59,896 participant-visits</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 187.086614 274.393701 
+Q 187.086614 285.165354 187.086614 295.154384 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 291.954384 
+L 187.086614 295.154384 
+L 185.486614 291.954384 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(106.788841 311.796309)">9,745 participants linked to temperature</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(133.717239 320.643879)">and socioeconomic status</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="337.744015" transform="rotate(-0 187.086614 337.744015)">ERA5-Land daily mean (about 9 km); ward-level match to the GCRO survey</text>
+   </g>
+   <g id="patch_19">
+    <path d="M 187.086614 344.125984 
+Q 187.086614 354.897638 187.086614 364.886668 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 361.686668 
+L 187.086614 364.886668 
+L 185.486614 361.686668 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 275.665698)">14 participants excluded: MASC records with no</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 283.205573)">visit date, which could not be linked to</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 290.745448)">temperature. Visits without a temperature-lag</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 298.285323)">value also excluded</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="384.232996" transform="rotate(-0 187.086614 384.232996)">24 biomarkers screened for a temperature signal (Stage 1)</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="404.10307" transform="rotate(-0 187.086614 404.10307)">Participant-grouped cross-validated R²</text>
+   </g>
+   <g id="patch_20">
+    <path d="M 187.086614 413.858268 
+Q 187.086614 424.629921 187.086614 434.618951 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 431.418951 
+L 187.086614 434.618951 
+L 185.486614 431.418951 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 387.803998)">14 biomarkers below the retention threshold;</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 395.343873)">no metabolic or liver biomarker retained</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="453.983874" transform="rotate(-0 187.086614 453.983874)">10 biomarkers retained</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="473.835353" transform="rotate(-0 187.086614 473.835353)">Six physiological domains; cross-validated R² of 0·05 or more</text>
+   </g>
+   <g id="patch_21">
+    <path d="M 187.086614 483.590551 
+Q 187.086614 494.362205 187.086614 504.351234 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 501.151234 
+L 187.086614 504.351234 
+L 185.486614 501.151234 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="523.697563" transform="rotate(-0 187.086614 523.697563)">9,293 participants grouped by heat-related pattern (Stage 3)</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="543.567637" transform="rotate(-0 187.086614 543.567637)">Principal component analysis, then Gaussian mixture model (k=3)</text>
+   </g>
+   <g id="patch_22">
+    <path d="M 187.086614 553.322835 
+Q 187.086614 564.094488 187.086614 574.083518 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 188.686614 570.883518 
+L 187.086614 574.083518 
+L 185.486614 570.883518 
+z
+" style="fill: #1a1a1a; stroke: #1a1a1a; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 492.402423)">452 participants excluded: no measurement of</text>
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; fill: #1a1a1a" transform="translate(357.165354 499.942298)">any retained biomarker</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="593.448441" transform="rotate(-0 187.086614 593.448441)">Three heat-vulnerability profiles</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #1a1a1a" x="187.086614" y="613.29992" transform="rotate(-0 187.086614 613.29992)">Cluster 1, n=4,377; Cluster 2, n=1,247; Cluster 3, n=3,669</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5bca967260">
+   <rect x="0" y="0" width="538.582677" height="657.637795"/>
+  </clipPath>
+ </defs>
+</svg>

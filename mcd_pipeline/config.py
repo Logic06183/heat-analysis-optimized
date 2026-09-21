@@ -213,7 +213,8 @@ TOP_INTERACTIONS = 50  # Rank top N interactions per biomarker
 PCA_VARIANCE_THRESHOLD = 0.85  # Retain components explaining 85% variance (archival)
 PCA_CLUSTERING_DIMS = 10       # Top N PCs for clustering (balances signal vs noise)
 # Refinement (April 2026): 56 PCs → curse of dimensionality for k-means (ARI=0.377).
-# Top 10 PCs (~38% variance) + GMM gives ARI=0.993.
+# Top 10 PCs + GMM gave ARI=0.993 on the April thirteen-biomarker fit; on the published
+# ten-biomarker fit the top 10 PCs carry 43.2% of variance and the bootstrap ARI is 0.985.
 KMEANS_K_RANGE = range(3, 9)   # k = 3, 4, 5, 6, 7, 8 (supplementary comparison)
 GMM_N_COMPONENTS = 3           # Primary clustering method (justified by refinement)
 GMM_COVARIANCE_TYPE = "full"   # Allows elliptical clusters in SHAP space

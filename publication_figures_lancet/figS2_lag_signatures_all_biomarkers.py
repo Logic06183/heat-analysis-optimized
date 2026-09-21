@@ -221,53 +221,6 @@ def build_figure():
     legend_ax.text(0.18, y, "temp ↓ biomarker (<45%)",
                    transform=legend_ax.transAxes, fontsize=6.7, va="center")
 
-    # ---- Narrative key (bottom-right spare cell) ----
-    key_ax.text(0.0, 1.00, "Takeaways", fontsize=8.0, fontweight="bold",
-                transform=key_ax.transAxes, va="top")
-    # Counted from the panels actually drawn rather than asserted, so the
-    # sentence cannot drift when the retained panel changes.
-    _peaks = []
-    for bm in panels:
-        _df = load_lag_summary(bm)
-        _peaks.append(int(_df["lag_day"].to_numpy()[
-            int(np.argmax(_df["mean_abs_shap"].to_numpy()))
-        ]))
-    _n_edge = sum(1 for pk in _peaks if pk <= 3 or pk >= 21)
-    _peak_of = dict(zip(panels, _peaks))
-    _n_fast = sum(1 for pk in _peaks if pk <= 3)
-    # Haematological and body-composition peak lags are read from the same
-    # summaries as the panels, so these lines cannot contradict the plot.
-    _haem = [bm for bm in ("hematocrit", "hemoglobin") if bm in _peak_of]
-    _body = [bm for bm in ("body_fat_percent", "waist_hip_ratio") if bm in _peak_of]
-    bullets = [
-        f"• {_n_fast} of {len(panels)} biomarkers peak within 0-3 d; "
-        f"{_n_edge} peak at either edge of the window (0-3 d or 21-30 d).",
-        "• Cardiovascular markers show the most symmetrical responses with",
-        "  SHAP balanced across positive and negative directions.",
-    ]
-    if _haem:
-        bullets += [
-            "• Haematological markers (Hct, Hb) peak at lag "
-            + "/".join(f"{_peak_of[bm]}" for bm in _haem)
-            + " d, consistent with",
-            "  acute haemoconcentration within days of hot weather.",
-        ]
-    if _body:
-        bullets += [
-            "• Body-composition markers peak at lag "
-            + "/".join(f"{_peak_of[bm]}" for bm in _body)
-            + " d (medium-horizon exposure).",
-        ]
-    bullets += ["• CI ribbons: 50 bootstrap replicates, 95% percentile interval."]
-    y = 0.88
-    for line in bullets:
-        key_ax.text(
-            0.0, y, line,
-            fontsize=6.8, color="#222222",
-            transform=key_ax.transAxes, va="top",
-        )
-        y -= 0.095
-
     # ---- Panel letters on the first panel only (sub-panels not lettered individually) ----
     panel_label(axes[0], "a", x=-0.30, y=1.18, fontsize=10)
 
@@ -285,7 +238,7 @@ def build_figure():
     )
     fig.text(
         0.02, 0.940,
-        "Ribbon = 95% percentile CI. Marker fill encodes directional asymmetry (pct_positive: fraction of patient-visits with SHAP > 0).",
+        "Ribbon = 95% percentile CI. Marker fill encodes directional asymmetry (pct_positive: fraction of participant-visits with SHAP > 0).",
         fontsize=7.1, color="#444444", ha="left", va="top",
     )
 

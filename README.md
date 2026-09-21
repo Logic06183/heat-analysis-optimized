@@ -48,7 +48,7 @@ Several analyses were run from standalone scripts at the repository root rather 
 
 The appendix numbers the analyses SA1 to SA11 in the order they appear in the paper. Script names predate that numbering and do not match it: a script called `sa9_*` is not appendix SA9. Read this table, not the file names. Mappings were confirmed against each script's docstring on 21 September 2026.
 
-Six of the reported analyses were pre-specified in the analysis plan (SA1 to SA4, SA9, SA10); the other five were added after the plan was fixed.
+Five of the reported analyses were pre-specified in the analysis plan (SA1, SA3, SA4, SA9, SA10); the other six were added after the plan was fixed. SA2 compares the two reanalysis grids and is not the plan's exposure-product item, which was the MODIS substitution listed below.
 
 | Appendix | Analysis | Script(s) |
 |---|---|---|
@@ -71,7 +71,7 @@ Run and not reported in the paper:
 | MODIS land surface temperature in place of ERA5-Land (pre-specified) | `mcd_pipeline/sensitivity/sa2_modis_vs_era5.py` | Surface skin temperature at a fixed overpass under cloud gaps measures a different quantity from 2 m air temperature; mean Spearman ρ 0·18 across the retained panel reflects that difference rather than fragility of the finding. |
 | Within-person case-crossover for CD4 count and viral load (pre-specified) | `mcd_pipeline/sensitivity/sa6_case_crossover.py`; `sa6b_conditional_logistic_or.py` | Temperature was available only on clinic-visit days, leaving 154 (viral load) and 66 (CD4) informative strata; odds ratios per °C were null with wide intervals (0·985, 0·909 to 1·067; 0·976, 0·856 to 1·112). Underpowered. |
 | Per-cohort random-effects meta-analysis of Stage 1 lag profiles | `mcd_pipeline/sensitivity/sa9_per_cohort_meta.py`; `run_pipeline.py --revision-sa9` | Two to five cohorts per biomarker, I² near 100% at most lags; the cohort question is answered by the leave-one-cohort-out refit (SA6). Fixed-effect and DerSimonian-Laird estimates only. |
-| Imputation comparison (KNN, MICE, complete case) | `mcd_pipeline/sensitivity/sa5_imputation_compare.py` | Not part of the reported analysis. |
+| Imputation comparison (KNN, MICE, complete case; pre-specified) | `mcd_pipeline/sensitivity/sa5_imputation_compare.py` | Never run. Socioeconomic covariates are assigned to every participant by statistical matching and the pipeline imputes nothing, so there was nothing to compare. |
 | Viral-load censoring check (refits restricted to detectable results) | No script retained. | Not reported. The censoring proportion itself (72·6% of viral-load results at a study-specific substituted value) is reported in the appendix from the harmonised data. |
 
 Provenance notes:
@@ -84,7 +84,7 @@ Runners `run_sas_era5land.py` and `run_remaining_sas.py` batch several of the `m
 
 ## Figures
 
-`publication_figures_lancet/` holds the figure scripts (`fig01_*.py` to `figS7_*.py`, `figS_DAG.py`), their caption text, and the figure files as submitted under `artwork_for_submission/` (SVG, PNG and PDF; main figures regenerated 4 and 18 September 2026, supplementary figures S2 and S3 on 21 September, all from the ten-biomarker Stage 3 run). Supplementary figures are rendered through `_save_artwork_plain.py` (plain tight-bbox save, the form the supplementary set was produced in); main-text figures save at Lancet column width via `_lancet_style.save_at_width`. The scripts read the retained-biomarker panel and Stage 3 outputs from `mcd_outputs_era5_land/`, which is generated from the clinical data and is not distributed; a few scripts also read small participant-level cache files written by `regenerate_final_figures.py`, which are likewise not in the repository.
+`publication_figures_lancet/` holds the figure scripts (`fig01_*.py` to `figS7_*.py`, `figS_DAG.py`, and `figS8_study_flow.py`, which draws the study flow from counts reported in the paper and reads no data), their caption text, and the figure files as submitted under `artwork_for_submission/` (SVG, PNG and PDF; main figures regenerated 4 and 18 September 2026, supplementary figures S2 and S3 on 21 September, all from the ten-biomarker Stage 3 run). Supplementary figures are rendered through `_save_artwork_plain.py` (plain tight-bbox save, the form the supplementary set was produced in); main-text figures save at Lancet column width via `_lancet_style.save_at_width`. The scripts read the retained-biomarker panel and Stage 3 outputs from `mcd_outputs_era5_land/`, which is generated from the clinical data and is not distributed; a few scripts also read small participant-level cache files written by `regenerate_final_figures.py`, which are likewise not in the repository.
 
 ## Data
 
