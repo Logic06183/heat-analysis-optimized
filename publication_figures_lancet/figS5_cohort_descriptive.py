@@ -44,24 +44,26 @@ from _lancet_style import save_at_width
 OUT_DIR = Path(os.environ.get("RP2_FIG_OUT",
                               str(Path(__file__).resolve().parent)))
 
-# Per-cohort frozen snapshot (source: TIDY_demographics.csv, 2026-04-23)
-# Ordered by n descending. pct_female/pct_hiv_pos reported as %.
+# Per-cohort summary for the participants who contribute biomarker observations (the
+# Table 1 denominators: unique patient_id per study in TIDY_clinical_biomarkers.csv,
+# n = 9,759), with age, sex and HIV status from TIDY_demographics.csv. Computed
+# 2026-09-21. Study names follow Table 1 of the paper. pct_female/pct_hiv_pos in %.
 COHORTS = [
-    # study_code, n, mean_age, sd_age, pct_female, pct_hiv_pos, programme_label
-    ("JHB_Aurum_009",  2550, 35.16, 10.14, 62.00, 100.00, "HIV cohort (Aurum)"),
-    ("JHB_VIDA_007",   2130, 32.88, 11.06, 45.02,   0.00, "Population (VIDA)"),
-    ("JHB_Ezin_002",   1053, 32.46,  7.73, 59.16, 100.00, "ART (Ezintsha)"),
-    ("JHB_DPHRU_053",  1012, 53.51,  6.00, 49.41,  19.66, "Ageing (DPHRU)"),
-    ("JHB_WRHI_001",    600, 34.72,  7.85, 57.50, 100.00, "HIV treatment (WRHI)"),
-    ("JHB_VIDA_008",    550, 39.06,  9.39, 82.36,   3.45, "Population (VIDA)"),
-    ("JHB_EZIN_025",    489, 34.81, 10.09, 48.47,   3.07, "Population (Ezintsha)"),
-    ("JHB_SCHARP_006",  451, 20.84,  2.28, 100.00,  0.00, "Adolescent (SCHARP)"),
-    ("JHB_SCHARP_004",  401, 24.23,  5.48,   0.00, 17.96, "Male cohort (SCHARP)"),
-    ("JHB_WRHI_003",    300, 41.99,  7.91, 68.00, 100.00, "HIV treatment (WRHI)"),
-    ("JHB_DPHRU_013",   247, 32.05,  7.23, 100.00, 60.32, "Women's health (DPHRU)"),
-    ("JHB_ACTG_015",    152, np.nan, np.nan, 100.00, 100.00, "ACTG clinical trial"),
-    ("JHB_ACTG_016",    108, 34.39,  8.02, 100.00, 100.00, "ACTG clinical trial"),
-    ("JHB_ACTG_019",    100, 38.17,  7.61, 100.00, 100.00, "ACTG clinical trial"),
+    # study name, n, mean_age, sd_age, pct_female, pct_hiv_pos, programme_label
+    ("Thol'Impilo",   2186, 35.21, 10.14,  62.21, 100.00, "HIV cohort (Aurum)"),
+    ("COV005",        2130, 32.88, 11.06,  45.02,   0.00, "Population (VIDA)"),
+    ("ADVANCE",       1053, 32.46,  7.73,  59.16, 100.00, "ART (Ezintsha)"),
+    ("MASC",          1009, 53.50,  5.99,  49.55,  19.72, "Ageing (DPHRU)"),
+    ("PEARLS",         600, 34.72,  7.85,  57.50, 100.00, "HIV treatment (WRHI)"),
+    ("HCW cohort",     535, 39.05,  9.38,  82.43,   3.55, "Population (VIDA)"),
+    ("Ezintsha 025",   487, 34.78, 10.10,  48.46,   2.87, "Population (Ezintsha)"),
+    ("HPTN 082",       451, 20.84,  2.28, 100.00,   0.00, "Adolescent (SCHARP)"),
+    ("HPTN 075",       401, 24.23,  5.48,   0.00,  17.96, "Male cohort (SCHARP)"),
+    ("WRHI 052",       300, 41.99,  7.91,  68.00, 100.00, "HIV treatment (WRHI)"),
+    ("WBS",            247, 32.05,  7.23, 100.00,  60.32, "Women's health (DPHRU)"),
+    ("OCTANE",         152, np.nan, np.nan, 100.00, 100.00, "ACTG clinical trial"),
+    ("STRIDE",         108, 34.39,  8.02, 100.00, 100.00, "ACTG clinical trial"),
+    ("ACTG 5175",      100, 38.17,  7.61, 100.00, 100.00, "ACTG clinical trial"),
 ]
 
 PROGRAMME_COLOURS = {
@@ -133,7 +135,7 @@ def build_figure():
         tick.set_color(hiv_colour(c[5]))
         tick.set_fontweight("semibold")
     ax_a.invert_yaxis()
-    ax_a.set_xlabel("n patients", fontsize=7.4)
+    ax_a.set_xlabel("Participants", fontsize=7.4)
     ax_a.grid(axis="x", color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_a.set_axisbelow(True)
     for side in ("top", "right"):
@@ -149,7 +151,7 @@ def build_figure():
         )
     ax_a.set_xlim(0, x_max * 1.38)
     ax_a.set_title(
-        "Cohort sample size (14 Johannesburg prospective cohorts)",
+        "Participants per cohort",
         fontsize=8.0, fontweight="semibold", color="#333333",
         pad=4, loc="left",
     )
@@ -215,20 +217,20 @@ def build_figure():
     # Manual label offsets to avoid collisions in the dense 100/100 corner.
     # Key: study_code without JHB_ prefix.  (dx, dy, ha, va)  in data coords.
     LABEL_OFFSETS = {
-        "Aurum_009":   ( +2.0, -7.5, "left",   "top"),
-        "Ezin_002":    ( -5.0, -7.5, "right",  "top"),
-        "WRHI_001":    (-15.0,  0.0, "right",  "center"),
-        "WRHI_003":    ( +4.0,  0.0, "left",   "center"),
-        "DPHRU_013":   ( +4.0, -4.0, "left",   "top"),
-        "ACTG_015":    ( -2.0, +9.0, "right",  "bottom"),
-        "ACTG_016":    ( +3.0, +9.0, "left",   "bottom"),
-        "ACTG_019":    (  0.0, -8.5, "center", "top"),
-        "SCHARP_006":  ( -3.0, -4.0, "right",  "top"),
-        "SCHARP_004":  ( +4.0,  0.0, "left",   "center"),
-        "VIDA_007":    ( -3.0, +3.5, "right",  "bottom"),
-        "VIDA_008":    ( +4.0,  0.0, "left",   "center"),
-        "EZIN_025":    ( -3.0, -4.0, "right",  "top"),
-        "DPHRU_053":   ( +4.0,  0.0, "left",   "center"),
+        "Thol'Impilo":   ( +2.0, -7.5, "left",   "top"),
+        "ADVANCE":    ( -5.0, -7.5, "right",  "top"),
+        "PEARLS":    (-15.0,  0.0, "right",  "center"),
+        "WRHI 052":    ( +4.0,  0.0, "left",   "center"),
+        "WBS":   ( +4.0, -4.0, "left",   "top"),
+        "OCTANE":    ( -2.0, +9.0, "right",  "bottom"),
+        "STRIDE":    ( +3.0, +9.0, "left",   "bottom"),
+        "ACTG 5175":    (  0.0, -8.5, "center", "top"),
+        "HPTN 082":  ( -3.0, -4.0, "right",  "top"),
+        "HPTN 075":  ( +4.0,  0.0, "left",   "center"),
+        "COV005":    ( -3.0, +3.5, "right",  "bottom"),
+        "HCW cohort":    ( +4.0,  0.0, "left",   "center"),
+        "Ezintsha 025":    ( -3.0, -4.0, "right",  "top"),
+        "MASC":   ( +4.0,  0.0, "left",   "center"),
     }
     for c in cohorts:
         pct_fem = c[4]
@@ -347,6 +349,7 @@ def build_figure():
     # ---- Save ----
     svg_path = OUT_DIR / "figS5_cohort_descriptive.svg"
     png_path = OUT_DIR / "figS5_cohort_descriptive.png"
+    ax_d.set_visible(False)  # summary text panel removed; the caption and Table 1 carry the counts
     midline_tick_labels(fig)
     save_at_width(fig, OUT_DIR, "figS5_cohort_descriptive", span="double")
     plt.close(fig)

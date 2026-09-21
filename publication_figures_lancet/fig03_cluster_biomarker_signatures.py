@@ -70,8 +70,8 @@ def build_figure():
     # the |SHAP| ribbon (taller) and pct_positive strip (shorter).
     outer = fig.add_gridspec(
         nrows=2, ncols=2,
-        left=0.085, right=0.965, top=0.82, bottom=0.07,
-        hspace=0.65, wspace=0.32,
+        left=0.085, right=0.965, top=0.83, bottom=0.07,
+        hspace=0.62, wspace=0.32,
     )
 
     panel_letters = ["a", "b", "c", "d"]
@@ -82,7 +82,7 @@ def build_figure():
     panel_ylims = {}
     for bm in PANEL_ORDER:
         sig = CLUSTER_BIOMARKER_LAG_SIGNATURE[bm]
-        ci_hi = max(sig["ci_upper"]) * 1.18
+        ci_hi = max(sig["ci_upper"]) * 1.32
         panel_ylims[bm] = (0, ci_hi)
 
     for idx, bm in enumerate(PANEL_ORDER):
@@ -137,9 +137,9 @@ def build_figure():
             left, right, color=base_colour, alpha=0.08, zorder=1,
         )
         # Peak annotation - offset horizontally if peak sits at edge of x-axis
-        if peak_idx == 0:
+        if peak_idx <= 1:
             ha_peak = "left"
-            xoff = 8
+            xoff = 9
         elif peak_idx == len(lags) - 1:
             ha_peak = "right"
             xoff = -6
@@ -149,7 +149,7 @@ def build_figure():
         ax_top.annotate(
             f"peak lag = {int(peak_x)} d",
             xy=(peak_x, mu[peak_idx]),
-            xytext=(xoff, 13),
+            xytext=(xoff, 7),
             textcoords="offset points",
             ha=ha_peak, va="bottom",
             fontsize=6.8, color="#222222",
@@ -158,13 +158,13 @@ def build_figure():
 
         # Titles + axes
         title = f"{BIOMARKER_PRETTY[bm]}"
-        subtitle = f"n = {n:,} visits   •   CV R² = {md(r2, 2)}   •   temp-feature rank {tr_min}\u2013{tr_max} of 45"
+        subtitle = f"n = {n:,} observations   •   CV R² = {md(r2, 2)}"
         # Subtitle sits ABOVE the title (panel letter → subtitle → title → plot)
         ax_top.text(
-            0.0, 1.26, subtitle, transform=ax_top.transAxes,
+            0.0, 1.20, subtitle, transform=ax_top.transAxes,
             fontsize=6.9, color="#555555", ha="left", va="bottom",
         )
-        ax_top.set_title(title, fontsize=8.6, pad=6, fontweight="semibold",
+        ax_top.set_title(title, fontsize=8.6, pad=5, fontweight="semibold",
                          color=category_label_colour(base_colour), loc="left")
         ax_top.set_ylim(panel_ylims[bm])
         ax_top.set_xlim(-1.5, 32)
@@ -174,7 +174,7 @@ def build_figure():
         ax_top.grid(axis="y", color="#EFEFEF", linewidth=0.4, zorder=0)
         ax_top.set_axisbelow(True)
 
-        panel_label(ax_top, panel_letters[idx], x=-0.17, y=1.28, fontsize=10)
+        panel_label(ax_top, panel_letters[idx], x=-0.17, y=1.20, fontsize=10)
 
         # ---- Bottom strip: pct_positive divergence from 0.5 ----
         centred = pp - 0.5
@@ -204,14 +204,8 @@ def build_figure():
             "Figure 3  |  Temperature SHAP signatures for the four biomarkers driving GMM cluster separation",
             fontsize=9.8, fontweight="bold", ha="left", va="top",
         )
-    fig.text(
-        0.02, 0.961,
-        "Mean |SHAP| across all seven temperature lags (bootstrap, 50 replicates). Marker colour encodes the fraction of participant-visits with positive temperature SHAP.",
-        fontsize=7.2, color="#444444", ha="left", va="top",
-    )
-
     # ---- Shared colour bar for the directional axis ----
-    cbar_ax = fig.add_axes([0.50, 0.930, 0.25, 0.011])
+    cbar_ax = fig.add_axes([0.50, 0.955, 0.25, 0.011])
     sm = cm.ScalarMappable(cmap=cmap_dir, norm=shap_norm)
     sm.set_array([])
     cb = fig.colorbar(sm, cax=cbar_ax, orientation="horizontal")
@@ -221,7 +215,7 @@ def build_figure():
     cb.outline.set_linewidth(0.4)
     cb.outline.set_edgecolor("#666666")
     fig.text(
-        0.49, 0.935, "Fraction of participant-visits with SHAP > 0:",
+        0.49, 0.960, "Fraction of participant-visits with SHAP > 0:",
         fontsize=6.9, color="#333333", ha="right", va="center",
     )
 
