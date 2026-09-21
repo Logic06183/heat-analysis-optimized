@@ -80,15 +80,16 @@ def build_figure():
     # Retained biomarker count varies by primary exposure (14 under ERA5, 13 under ERA5-Land).
     n_panels = len(panels)
 
-    n_rows, n_cols = 4, 4
+    n_cols = 4
+    n_rows = int(np.ceil((n_panels + 2) / n_cols))  # two spare cells carry the key
     fig_w_in = 180 * MM
-    fig_h_in = 235 * MM
+    fig_h_in = (22 + 52 * n_rows) * MM
     fig = plt.figure(figsize=(fig_w_in, fig_h_in))
 
     gs = fig.add_gridspec(
         nrows=n_rows, ncols=n_cols,
-        left=0.085, right=0.975, top=0.885, bottom=0.06,
-        hspace=1.10, wspace=0.50,
+        left=0.085, right=0.975, top=0.90, bottom=0.075,
+        hspace=0.78, wspace=0.50,
     )
 
     axes: list[plt.Axes] = []
@@ -142,7 +143,7 @@ def build_figure():
         )
         ax.text(
             0.0, 1.05,
-            f"n={n:,}   R²={mean_r2:.2f}   peak {int(peak_x)}d",
+            f"n={n:,}   R²={md(mean_r2, 2)}   peak {int(peak_x)} d",
             transform=ax.transAxes, ha="left", va="bottom",
             fontsize=6.4, color="#555555",
         )
@@ -160,7 +161,7 @@ def build_figure():
         ax.spines["left"].set_color("#444444")
 
         # Axis labels only on perimeter
-        if r == n_rows - 1 or i >= 12:  # bottom row
+        if i + n_cols >= n_panels:  # lowest panel in its column
             ax.set_xlabel("Lag (days)", fontsize=7.0)
         else:
             ax.set_xticklabels([])
@@ -171,8 +172,8 @@ def build_figure():
     # We only created 14 - but we also want the last row's bottom-most two
     # cells to carry the legend and the narrative key. Create placeholder axes
     # in those cells.
-    legend_ax = fig.add_subplot(gs[3, 2])
-    key_ax = fig.add_subplot(gs[3, 3])
+    legend_ax = fig.add_subplot(gs[n_rows - 1, n_cols - 2])
+    key_ax = fig.add_subplot(gs[n_rows - 1, n_cols - 1])
     for _ax in (legend_ax, key_ax):
         _ax.set_xticks([])
         _ax.set_yticks([])
@@ -180,9 +181,9 @@ def build_figure():
             _ax.spines[side].set_visible(False)
 
     # ---- Organ-system legend (bottom-left of the two spare cells) ----
-    legend_ax.text(0.0, 1.00, "Organ system", fontsize=8.0, fontweight="bold",
+    legend_ax.text(0.0, 1.12, "Organ system", fontsize=8.0, fontweight="bold",
                    transform=legend_ax.transAxes, va="top")
-    y = 0.88
+    y = 0.93
     # Only list systems that actually appear among the panels drawn, so the key
     # cannot advertise an organ system whose biomarkers are no longer retained.
     _systems_present = {BIOMARKER_SYSTEM[bm] for bm in panels}
@@ -198,31 +199,31 @@ def build_figure():
             fontsize=7.1, color="#222222",
             transform=legend_ax.transAxes, va="center",
         )
-        y -= 0.11
+        y -= 0.135
     # Directional marker key
-    legend_ax.text(
-        0.0, y - 0.02, "Markers", fontsize=7.4, fontweight="semibold",
-        transform=legend_ax.transAxes, va="top",
+    key_ax.text(
+        0.0, 1.12, "Direction of temperature SHAP", fontsize=8.0, fontweight="bold",
+        transform=key_ax.transAxes, va="top",
     )
-    y -= 0.12
+    y = 0.93
     # Filled circle
-    legend_ax.scatter(0.07, y, s=32, facecolor="#555555", edgecolor="#555555",
-                      linewidth=1.0, transform=legend_ax.transAxes, clip_on=False)
-    legend_ax.text(0.18, y, "temp ↑ biomarker (>55%)",
-                   transform=legend_ax.transAxes, fontsize=6.7, va="center")
-    y -= 0.09
-    legend_ax.scatter(0.07, y, s=32, facecolor="#BBBBBB", edgecolor="#555555",
-                      linewidth=1.0, transform=legend_ax.transAxes, clip_on=False)
-    legend_ax.text(0.18, y, "mixed direction (45-55%)",
-                   transform=legend_ax.transAxes, fontsize=6.7, va="center")
-    y -= 0.09
-    legend_ax.scatter(0.07, y, s=32, facecolor="white", edgecolor="#555555",
-                      linewidth=1.0, transform=legend_ax.transAxes, clip_on=False)
-    legend_ax.text(0.18, y, "temp ↓ biomarker (<45%)",
-                   transform=legend_ax.transAxes, fontsize=6.7, va="center")
+    key_ax.scatter(0.07, y, s=32, facecolor="#555555", edgecolor="#555555",
+                      linewidth=1.0, transform=key_ax.transAxes, clip_on=False)
+    key_ax.text(0.18, y, "mostly positive (>55%)",
+                   transform=key_ax.transAxes, fontsize=6.7, va="center")
+    y -= 0.135
+    key_ax.scatter(0.07, y, s=32, facecolor="#BBBBBB", edgecolor="#555555",
+                      linewidth=1.0, transform=key_ax.transAxes, clip_on=False)
+    key_ax.text(0.18, y, "mixed (45–55%)",
+                   transform=key_ax.transAxes, fontsize=6.7, va="center")
+    y -= 0.135
+    key_ax.scatter(0.07, y, s=32, facecolor="white", edgecolor="#555555",
+                      linewidth=1.0, transform=key_ax.transAxes, clip_on=False)
+    key_ax.text(0.18, y, "mostly negative (<45%)",
+                   transform=key_ax.transAxes, fontsize=6.7, va="center")
 
     # ---- Panel letters on the first panel only (sub-panels not lettered individually) ----
-    panel_label(axes[0], "a", x=-0.30, y=1.18, fontsize=10)
+    # Single-panel figure: no panel letter.
 
     # ---- Titles ----
     if not ARTWORK_MODE:
@@ -231,16 +232,17 @@ def build_figure():
             f"Figure S2  |  Bootstrap lag signatures for all {len(panels)} retained biomarkers",
             fontsize=10.0, fontweight="bold", ha="left", va="top",
         )
-    fig.text(
-        0.02, 0.955,
-        "Mean |SHAP| of temperature at each lag (0, 1, 3, 7, 14, 21, 30 d) from interventional TreeSHAP, 50 bootstrap replicates.",
-        fontsize=7.1, color="#444444", ha="left", va="top",
-    )
-    fig.text(
-        0.02, 0.940,
-        "Ribbon = 95% percentile CI. Marker fill encodes directional asymmetry (pct_positive: fraction of participant-visits with SHAP > 0).",
-        fontsize=7.1, color="#444444", ha="left", va="top",
-    )
+    if not ARTWORK_MODE:
+        fig.text(
+            0.02, 0.955,
+            "Mean |SHAP| of temperature at each lag (0, 1, 3, 7, 14, 21, 30 d) from interventional TreeSHAP, 50 bootstrap replicates.",
+            fontsize=7.1, color="#444444", ha="left", va="top",
+        )
+        fig.text(
+            0.02, 0.940,
+            "Ribbon = 95% percentile CI. Marker fill encodes directional asymmetry (pct_positive: fraction of participant-visits with SHAP > 0).",
+            fontsize=7.1, color="#444444", ha="left", va="top",
+        )
 
     # ---- Save ----
     svg_path = OUT_DIR / "figS2_lag_signatures_all_biomarkers.svg"

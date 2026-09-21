@@ -189,15 +189,15 @@ def build_figure():
     panel_label(ax_a, "a", x=-0.20, y=1.10, fontsize=11)
 
     # Colourbar - placed cleanly above panel a, well clear of the subtitle
-    cax = fig.add_axes([0.085, 0.870, 0.48, 0.010])
+    cax = fig.add_axes([0.085, 0.898, 0.48, 0.010])
     cb = fig.colorbar(im, cax=cax, orientation="horizontal")
     cb.set_ticks([-1.0, -0.5, 0, 0.5, 0.7, 1.0])
-    cb.set_ticklabels(["-1", "-0.5", "0", "0.5", "0.7*", "1"])
+    cb.set_ticklabels(["−1", "−0.5", "0", "0.5", "0.7*", "1"])
     cb.ax.tick_params(labelsize=6.2, length=2, pad=2)
     cb.outline.set_linewidth(0.4)
     cb.outline.set_edgecolor("#666666")
     fig.text(
-        0.085, 0.889,
+        0.085, 0.917,
         "* ρ ≥ 0.70 counted as concordant (bold outline in panel a).",
         fontsize=6.6, color="#555555", ha="left", va="bottom",
     )

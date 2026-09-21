@@ -165,7 +165,7 @@ def build_figure():
     ]
     ax_a.legend(
         leg_handles,
-        ["HIV-positive dominant (≥75%)", "Mixed (25-75%)", "HIV-negative dominant (≤25%)"],
+        ["HIV-positive dominant (≥75%)", "Mixed (25–75%)", "HIV-negative dominant (≤25%)"],
         loc="lower right", frameon=False, fontsize=6.5, handlelength=1.0,
         handleheight=0.6, borderaxespad=0.3,
     )
@@ -176,6 +176,8 @@ def build_figure():
         mean = c[2]
         sd = c[3]
         if np.isnan(mean):
+            ax_b.text(37.5, yi, "age not recorded", fontsize=6.0, color="#888888",
+                      ha="center", va="center", fontstyle="italic")
             continue
         ax_b.plot([mean - sd, mean + sd], [yi, yi],
                   color="#999999", linewidth=1.0, zorder=2)
@@ -203,7 +205,7 @@ def build_figure():
     panel_label(ax_b, "b", x=-0.10, y=1.05, fontsize=11)
 
     # Missing-age note
-    missing = [c[0] for c in cohorts if np.isnan(c[2])]
+    missing = []  # noted on the row itself
     if missing:
         ax_b.text(
             0.02, 0.02,
@@ -225,11 +227,11 @@ def build_figure():
         "OCTANE":    ( -2.0, +9.0, "right",  "bottom"),
         "STRIDE":    ( +3.0, +9.0, "left",   "bottom"),
         "ACTG 5175":    (  0.0, -8.5, "center", "top"),
-        "HPTN 082":  ( -3.0, -4.0, "right",  "top"),
+        "HPTN 082":  (  0.0, -6.0, "center", "top"),
         "HPTN 075":  ( +4.0,  0.0, "left",   "center"),
-        "COV005":    ( -3.0, +3.5, "right",  "bottom"),
-        "HCW cohort":    ( +4.0,  0.0, "left",   "center"),
-        "Ezintsha 025":    ( -3.0, -4.0, "right",  "top"),
+        "COV005":    ( -7.0,  0.0, "right",  "center"),
+        "HCW cohort":    ( -2.0, +4.0, "right",  "bottom"),
+        "Ezintsha 025":    ( +3.0, -5.0, "left",   "top"),
         "MASC":   ( +4.0,  0.0, "left",   "center"),
     }
     for c in cohorts:

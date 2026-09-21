@@ -161,7 +161,7 @@ def panel_pc_pairs(axs):
     )
     axs[0][3].text(
         0.5, 1.05,
-        "Which PCs separate which clusters?",
+        "Cluster",
         transform=axs[0][3].transAxes, ha="center", va="bottom",
         fontsize=7.8, color="#222222", fontweight="semibold",
     )
@@ -242,7 +242,7 @@ def panel_variance_explained(ax):
     ax.set_xlabel("Principal component")
     ax.set_ylabel("Individual variance (%)", fontsize=7.4)
     ax.tick_params(axis="both", labelsize=6.5)
-    ax.set_title("PC variance explained - clustering uses top 10",
+    ax.set_title("Variance explained by principal component",
                  fontsize=8.2, pad=6, loc="left", fontweight="semibold")
 
     # Small legend tucked on left so it does not collide with the cumulative curve
@@ -298,7 +298,7 @@ def panel_silhouette(ax):
     ax.invert_yaxis()
     ax.set_xlim(-1.05, 1.05)
     ax.set_xlabel("Silhouette coefficient  (10D Euclidean, sampled n=3,000)")
-    ax.set_title("Silhouette by cluster - Euclidean separation is modest",
+    ax.set_title("Silhouette by cluster",
                  fontsize=8.2, pad=6, loc="left", fontweight="semibold")
     ax.grid(axis="x", color="#EFEFEF", linewidth=0.4, zorder=0)
     ax.set_axisbelow(True)
@@ -351,7 +351,7 @@ def panel_mahalanobis(ax):
     ax.invert_yaxis()
     ax.set_xlim(0, 9)
     ax.set_xlabel("Mahalanobis distance from own-cluster centroid  (10D)")
-    ax.set_title("Mahalanobis distance - each cluster's own tightness in 10D",
+    ax.set_title("Mahalanobis distance from own-cluster centroid",
                  fontsize=8.2, pad=6, loc="left", fontweight="semibold")
     ax.grid(axis="x", color="#EFEFEF", linewidth=0.4, zorder=0)
     ax.set_axisbelow(True)

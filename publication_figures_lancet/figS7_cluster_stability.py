@@ -190,7 +190,7 @@ def build_figure():
     ax_a.set_yticks([])
     ax_a.set_xlim(-0.05, 1.05)
     ax_a.set_ylim(-0.7, n - 0.3)
-    ax_a.set_xlabel("Mean ARI across 500 resamples (95 % CI)", fontsize=7.4)
+    ax_a.set_xlabel("Mean ARI across 500 resamples (95% CI)", fontsize=7.4)
     ax_a.grid(axis="x", color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_a.set_axisbelow(True)
     for side in ("top", "right", "left"):
@@ -217,7 +217,7 @@ def build_figure():
                    markeredgecolor=METHOD_EDGE["gmm"],
                    markersize=6, markeredgewidth=1.4, label="primary"),
     ]
-    ax_a.legend(handles=leg_handles, loc="lower right", frameon=False,
+    ax_a.legend(handles=leg_handles, loc="lower left", frameon=False,
                 fontsize=6.6, handlelength=0.9, borderaxespad=0.4)
 
     # ------------------------------------------------------------------
@@ -238,10 +238,10 @@ def build_figure():
     # Keyed by the short label so it survives the leading-PC count changing
     # with the run (PC56 under ERA5, PC43 on the ten-biomarker profile).
     B_LABEL_OFFSETS = {
-        "PC5·GMM·k3":  (-0.008, -0.040, "right", "top"),
+        "PC5·GMM·k3":  (+0.016, -0.012, "left",  "top"),
         "PC5·km·k4":   (+0.014, -0.030, "left",  "top"),
         "PC5·km·k3":   (+0.014, -0.028, "left",  "top"),
-        "PC10·GMM·k3": (-0.008, +0.032, "right", "bottom"),
+        "PC10·GMM·k3": (+0.020, +0.012, "left",  "bottom"),
     }
     for c in CANDIDATES:
         dx, dy, ha, va = B_LABEL_OFFSETS.get(
@@ -259,24 +259,14 @@ def build_figure():
     # Threshold lines
     ax_b.axhline(ARI_THRESHOLD, color="#C94F7C", linewidth=0.8,
                  linestyle="--", alpha=0.55, zorder=1)
-    ax_b.text(0.38, ARI_THRESHOLD - 0.01, "ARI = 0.80",
-              fontsize=6.2, color="#9A3A5E", ha="right", va="top",
-              fontstyle="italic")
-
-    # Pareto tick annotation — sits in open space at lower-right, arrow to frontier
-    ax_b.annotate(
-        "", xy=(0.135, 0.955), xytext=(0.30, 0.62),
-        arrowprops=dict(arrowstyle="->", color="#999999",
-                        lw=0.8, connectionstyle="arc3,rad=-0.25"),
-    )
-    ax_b.text(0.30, 0.60, "high stability at\nlow Euclidean silhouette",
-              fontsize=6.2, color="#777777", ha="left", va="top",
+    ax_b.text(0.435, ARI_THRESHOLD + 0.008, "ARI = 0.80",
+              fontsize=6.2, color="#9A3A5E", ha="right", va="bottom",
               fontstyle="italic")
 
     ax_b.set_xlabel("Silhouette score", fontsize=7.4)
     ax_b.set_ylabel("Mean ARI (500 resamples)", fontsize=7.4)
-    ax_b.set_xlim(0.08, 0.44)
-    ax_b.set_ylim(0.20, 1.08)
+    ax_b.set_xlim(0.05, 0.44)
+    ax_b.set_ylim(0.20, 1.10)
     ax_b.grid(color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_b.set_axisbelow(True)
     for side in ("top", "right"):
@@ -335,7 +325,7 @@ def build_figure():
     ax_c.set_xlim(0, 1.0)
     ax_c.set_xlabel("Partition proportion", fontsize=7.4)
     ax_c.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
-    ax_c.set_xticklabels(["0 %", "25 %", "50 %", "75 %", "100 %"], fontsize=7.0)
+    ax_c.set_xticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=7.0)
     ax_c.grid(axis="x", color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_c.set_axisbelow(True)
     for side in ("top", "right"):

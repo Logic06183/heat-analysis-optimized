@@ -108,7 +108,7 @@ def build_figure():
     ax_hm.set_xticks(np.arange(len(LAG_DAYS)))
     ax_hm.set_xticklabels(lag_tick_labels(LAG_DAYS))
     ax_hm.set_xlabel("Temperature exposure lag (days)")
-    ax_hm.set_title("Relative temperature impact across lag windows  (peak lag outlined)",
+    ax_hm.set_title("Relative temperature signal across lag windows  (peak lag outlined)",
                     fontsize=8.2, pad=6, loc="center")
 
     # Peak lag marker: outline the lag window with the highest mean |SHAP|
@@ -140,11 +140,9 @@ def build_figure():
         )
         ax_hm.add_patch(strip)
 
-    # Full box around heatmap
+    # No box outline around the heatmap (journal artwork rule)
     for side in ("top", "right", "left", "bottom"):
-        ax_hm.spines[side].set_visible(True)
-        ax_hm.spines[side].set_color("#666666")
-        ax_hm.spines[side].set_linewidth(0.5)
+        ax_hm.spines[side].set_visible(False)
     ax_hm.tick_params(axis="both", length=2.5, width=0.5)
 
     # Colourbar for heatmap
@@ -187,9 +185,9 @@ def build_figure():
                style="italic", rotation=90)
 
     ax_fp.invert_yaxis()
-    ax_fp.set_ylim(len(order) - 0.5, -0.9)
+    ax_fp.set_ylim(len(order) - 0.5, -0.5)
     ax_fp.set_xlim(-0.06, x_max * 1.20)
-    ax_fp.set_xlabel("Cross-validated R²  (5-fold GroupKFold)")
+    ax_fp.set_xlabel("Cross-validated R²  (5-fold, grouped by participant)")
     ax_fp.set_title("Model adequacy", fontsize=8.5, pad=6, loc="center")
     ax_fp.tick_params(axis="y", left=False, labelleft=False)
     ax_fp.grid(axis="x", color="#EFEFEF", linewidth=0.4, zorder=0)

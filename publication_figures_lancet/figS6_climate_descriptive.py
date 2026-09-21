@@ -211,11 +211,11 @@ def build_figure():
     ax_a.axvspan(5.5, 8.5, facecolor="#CFE4F6", alpha=0.22, zorder=0)   # winter Jun-Aug
     ax_a.axvspan(9.5, 12.5, facecolor="#F6CFCF", alpha=0.18, zorder=0)  # summer Oct-Dec
 
-    ax_a.text(2, 5.2, "summer (Oct-Mar)", fontsize=6.4, color="#8B4F63",
+    ax_a.text(2, 3.7, "summer (Oct–Mar)", fontsize=6.4, color="#8B4F63",
               ha="center", va="bottom", fontstyle="italic")
-    ax_a.text(7, 5.2, "winter (Jun-Aug)", fontsize=6.4, color="#4D6B8A",
+    ax_a.text(7, 3.7, "winter (Jun–Aug)", fontsize=6.4, color="#4D6B8A",
               ha="center", va="bottom", fontstyle="italic")
-    ax_a.text(11, 5.2, "summer", fontsize=6.4, color="#8B4F63",
+    ax_a.text(11, 3.7, "summer", fontsize=6.4, color="#8B4F63",
               ha="center", va="bottom", fontstyle="italic")
 
     ax_a.set_xticks(months)
@@ -237,9 +237,9 @@ def build_figure():
 
     # Legend under panel a
     leg_handles = [
-        plt.Line2D([0], [0], color="#555555", linewidth=0.8, label="p5-p95"),
+        plt.Line2D([0], [0], color="#555555", linewidth=0.8, label="p5–p95"),
         plt.Rectangle((0, 0), 1, 1, facecolor="#A0B0BE", edgecolor="#222222",
-                      linewidth=0.4, label="p25-p75"),
+                      linewidth=0.4, label="p25–p75"),
         plt.Line2D([0], [0], color="#222222", linewidth=1.1, label="median"),
         plt.Line2D([0], [0], marker="D", linestyle="None",
                    markerfacecolor="white", markeredgecolor="#222222",
@@ -262,9 +262,11 @@ def build_figure():
     ax_bn = ax_b.twinx()
     ax_bn.bar(years, y_n, color="#D9D9D9", edgecolor="none",
               width=0.78, zorder=1)
-    ax_bn.set_ylabel("n visits", fontsize=7.0, color="#666666")
+    ax_bn.set_ylabel("Visits (n)", fontsize=7.0, color="#666666")
     ax_bn.tick_params(axis="y", labelsize=6.4, colors="#666666", length=2)
     ax_bn.set_ylim(0, 25000)
+    from matplotlib.ticker import FuncFormatter
+    ax_bn.yaxis.set_major_formatter(FuncFormatter(lambda v, _pos: f"{int(v):,}"))
     for side in ("top",):
         ax_bn.spines[side].set_visible(False)
     ax_bn.spines["right"].set_color("#999999")

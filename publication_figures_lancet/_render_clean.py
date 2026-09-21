@@ -14,6 +14,10 @@ DROP = ([r"^\s*•"] if not any(k in SCRIPT for k in ("figS3","figS4")) else [])
         r"^PC10 retains", r"^above the 0\.80", r"^failed reproducibility", r"^allow probabilistic", r"^splits into",
         r"^sufficient signal", r"^Primary methods cite", r"^Original all-component"]
 def _fix(s):
+    s = re.sub(r"(\d)\.(\d)", "\\1\u00b7\\2", s)
+    s = re.sub(r"(\d)-(\d)", "\\1\u2013\\2", s)
+    s = s.replace(" - ", " \u2013 ")
+    s = re.sub(r"(^|[\s(\[=])-(\d)", "\\1\u2212\\2", s)
     return s.replace("patient-visit", "participant-visit").replace("Patient-visit", "Participant-visit").replace("n patients", "n participants")
 _ft = mfig.Figure.text
 def fig_text(self, x, y, s, *a, **k):
@@ -31,6 +35,10 @@ def ax_text(self, x, y, s, *a, **k):
         s = _fix(s)
     return _at(self, x, y, s, *a, **k)
 maxes.Axes.text = ax_text
+_an = maxes.Axes.annotate
+def ax_annotate(self, text, *a, **k):
+    return _an(self, _fix(text) if isinstance(text, str) else text, *a, **k)
+maxes.Axes.annotate = ax_annotate
 for name in ("set_title", "set_xlabel", "set_ylabel"):
     orig = getattr(maxes.Axes, name)
     def make(orig):

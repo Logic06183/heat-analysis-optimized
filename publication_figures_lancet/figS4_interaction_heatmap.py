@@ -286,8 +286,9 @@ def build_figure():
                          fontsize=7.0)
     for tick, i in zip(ax_b.get_yticklabels(), sorted_idx):
         tick.set_color(ORGAN_COLOURS[BIOMARKER_SYSTEM[BIOMARKER_ORDER[i]]])
-    ax_b.set_xlabel("# FDR-significant temp × modifier interactions",
-                    fontsize=7.2)
+    ax_b.set_xlabel("FDR-significant interactions (n)", fontsize=7.2)
+    from matplotlib.ticker import MaxNLocator
+    ax_b.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax_b.invert_yaxis()
     ax_b.grid(axis="x", color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_b.set_axisbelow(True)
@@ -302,7 +303,7 @@ def build_figure():
         else:
             ax_b.text(cnt + 0.25, yi, f"{cnt}", ha="left", va="center",
                       fontsize=6.6, color="#222222", fontweight="semibold")
-    ax_b.set_title("Per-biomarker FDR hits", fontsize=8.0, fontweight="semibold",
+    ax_b.set_title("FDR-significant interactions per biomarker", fontsize=8.0, fontweight="semibold",
                    loc="left", pad=5)
     panel_label(ax_b, "b", x=-0.40, y=1.08, fontsize=11)
 
@@ -322,7 +323,7 @@ def build_figure():
                          rotation=38, ha="right", fontsize=6.5)
     for tick, bm in zip(ax_c.get_xticklabels(), BIOMARKER_ORDER):
         tick.set_color(ORGAN_COLOURS[BIOMARKER_SYSTEM[bm]])
-    ax_c.set_ylabel("# FDR-significant interactions", fontsize=7.2)
+    ax_c.set_ylabel("FDR-significant interactions (n)", fontsize=7.2)
     ax_c.grid(axis="y", color="#F0F0F0", linewidth=0.4, zorder=0)
     ax_c.set_axisbelow(True)
     for side in ("top", "right"):
@@ -345,7 +346,7 @@ def build_figure():
         [f"{c[0]}  {int(cat_counts[i])} ({100*int(cat_counts[i])/total:.0f}%)"
          if total else c[0]
          for i, c in enumerate(MODIFIER_CATEGORIES)],
-        loc="upper right", frameon=False, fontsize=6.6, handlelength=1.0,
+        loc="upper left", frameon=False, fontsize=6.6, handlelength=1.0,
         handleheight=0.6, borderaxespad=0.2,
     )
     panel_label(ax_c, "c", x=-0.09, y=1.10, fontsize=11)
@@ -376,7 +377,7 @@ def build_figure():
                            for t in top10]
         rowcols = [cat_colour_map[c] for c in cats]
         ax_d.barh(y, values, color=rowcols, edgecolor="#222222", linewidth=0.3,
-                  zorder=3, height=0.50)
+                  zorder=3, height=0.34)
         # Single combined descriptor above each bar, left-aligned inside the
         # panel's own axes and coloured by organ system (was a wide left-hanging
         # y-tick label that overflowed into panel c and clipped biomarker names).
@@ -385,7 +386,7 @@ def build_figure():
         for yi, t, bm, mod, tf in zip(y, top10, bm_pretty, mod_name_clean,
                                       temp_name_clean):
             organ_col = ORGAN_COLOURS[BIOMARKER_SYSTEM[t["biomarker"]]]
-            ax_d.text(0.0, yi + 0.40, f"{bm}  ·  {mod} × {tf}",
+            ax_d.text(0.0, yi + 0.25, f"{bm}  ·  {mod} × {tf}",
                       ha="left", va="bottom", fontsize=6.3, color=organ_col)
         for yi, t, v in zip(y, top10, values):
             ax_d.text(v + 0.015, yi,
@@ -399,7 +400,7 @@ def build_figure():
         ax_d.grid(axis="x", color="#F0F0F0", linewidth=0.4, zorder=0)
         ax_d.set_axisbelow(True)
 
-    ax_d.set_title("Top-10 strongest FDR-sig interactions",
+    ax_d.set_title("Ten strongest FDR-significant interactions",
                    fontsize=8.0, fontweight="semibold", loc="left", pad=5)
     panel_label(ax_d, "d", x=-0.08, y=1.10, fontsize=11)
 
