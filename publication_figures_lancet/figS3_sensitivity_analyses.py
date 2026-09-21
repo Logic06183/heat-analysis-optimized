@@ -1,27 +1,28 @@
 """Figure S3 - Sensitivity analyses summary.
 
 Scientific purpose:
-    The primary Stage 1 results (Figure 1) rest on a series of modelling
-    choices that each could plausibly drive the findings. This figure
-    summarises seven pre-specified sensitivity analyses as a single
-    robust-vs-not visual. It answers the question "would a reviewer's
-    preferred alternative specification change the story?" at a glance.
+    The primary Stage 1 results (Figure 1) rest on modelling choices that
+    could each plausibly drive the findings. This figure summarises the
+    exposure-definition and HIV-stratification checks as a single
+    robust-vs-not visual: would a reviewer's preferred alternative
+    specification change the story?
 
-Panels:
-    a. Concordance heatmap (13 biomarkers × 5 SA variants - SA5 p95/p90, SA7 humidity).
-       Cell = Spearman ρ of per-lag SHAP profile vs primary specification.
-       Concordance criterion ρ ≥ 0.70 shown with a bold outline.
-    b. Summary forest - per-SA mean ρ (95% range across biomarkers) and
-       % concordant biomarkers, sorted from most to least robust.
-    c. Humidity-metric comparison (SA7): apparent T vs heat index vs
-       wet-bulb, showing how sensitive the findings are to the choice of
-       heat-stress exposure metric.
-    d. HIV effect-modifier callout (SA7) - the single most important
-       qualitative finding: 12/14 adequate biomarkers have distinct
-       temperature lag-response profiles between HIV+ and HIV- strata.
+Panels (appendix numbering as of 21 September 2026):
+    a. Concordance heatmap (retained biomarkers x 5 specifications:
+       SA4 heatwave-day thresholds at p95/p90, SA5 three humidity-aware
+       indices). Cell = Spearman rho of the per-lag SHAP profile against
+       the primary specification; rho >= 0.70 outlined.
+    b. Per-specification mean rho (95% range across biomarkers) and the
+       share of retained biomarkers concordant.
+    c. Humidity-metric comparison (SA5) by biomarker.
+    d. HIV-stratified concordance (SA3): retained biomarkers whose
+       HIV-positive and HIV-negative lag profiles disagree, those that
+       agree, and those with no HIV-negative stratum.
+
+The biomarker rows follow RETAINED from the Stage 3 run in force.
 
 Source data:
-    mcd_outputs/sensitivity/sa{n}/sa{n}_summary.json
+    mcd_outputs_era5_land/sensitivity/{sa8_heatwave,sa10_humidity,sa7_hiv_stratified}/
 """
 from __future__ import annotations
 
@@ -53,14 +54,13 @@ OUT_DIR = Path(os.environ.get("RP2_FIG_OUT",
                               str(Path(__file__).resolve().parent)))
 
 SA_COLUMNS = [
-    ("SA5 p95", "sa8_heatwave/sa8_summary.json", ("p95_vs_primary", None)),
-    ("SA5 p90", "sa8_heatwave/sa8_summary.json", ("p90_vs_primary", None)),
-    ("SA7 apparent T", "sa10_humidity/sa10_summary.json", ("variants", "apparent_temperature")),
-    ("SA7 heat index", "sa10_humidity/sa10_summary.json", ("variants", "heat_index")),
-    ("SA7 wet bulb", "sa10_humidity/sa10_summary.json", ("variants", "wet_bulb_stull")),
+    ("SA4 p95", "sa8_heatwave/sa8_summary.json", ("p95_vs_primary", None)),
+    ("SA4 p90", "sa8_heatwave/sa8_summary.json", ("p90_vs_primary", None)),
+    ("SA5 apparent T", "sa10_humidity/sa10_summary.json", ("variants", "apparent_temperature")),
+    ("SA5 heat index", "sa10_humidity/sa10_summary.json", ("variants", "heat_index")),
+    ("SA5 wet bulb", "sa10_humidity/sa10_summary.json", ("variants", "wet_bulb_stull")),
 ]
 
-# 13 retained biomarkers under ERA5-Land (bmi dropped - did not meet retention).
 # Organ-system display order for the retained panel. Filtered against
 # RETAINED (read from the Stage 3 run) so the figure follows the retention
 # rule in force rather than a hard-coded list.
@@ -252,7 +252,7 @@ def build_figure():
                   ha="left", va="center", fontsize=6.3, color="#333333")
     panel_label(ax_b, "b", x=-0.32, y=1.10, fontsize=11)
 
-    # ============ Panel c: humidity-metric SA7 strip ============
+    # ============ Panel c: humidity-metric SA5 strip ============
     ax_c = fig.add_subplot(outer[1, 0])
     with open(SENS_DIR / "sa10_humidity/sa10_summary.json") as fh:
         sa10 = json.load(fh)
@@ -301,13 +301,13 @@ def build_figure():
     for side in ("top", "right"):
         ax_c.spines[side].set_visible(False)
     ax_c.set_title(
-        "Exposure-metric sensitivity (SA7) - dry-bulb reference vs humidity-aware indices",
+        "Exposure-metric sensitivity (SA5) - dry-bulb reference vs humidity-aware indices",
         fontsize=7.6, fontweight="semibold", color="#333333",
         pad=4, loc="left",
     )
     panel_label(ax_c, "c", x=-0.12, y=1.13, fontsize=11)
 
-    # ============ Panel d: HIV effect modifier callout (SA7) ============
+    # ============ Panel d: HIV effect modifier callout (SA5) ============
     ax_d = fig.add_subplot(outer[1, 1])
     ax_d.set_xticks([]); ax_d.set_yticks([])
     for side in ("top", "right", "bottom", "left"):
@@ -334,7 +334,7 @@ def build_figure():
         not_mod = sorted(retained - set(effect_mods) - set(no_comparator))
 
     ax_d.text(0.0, 1.02,
-              "SA4  |  HIV status as effect modifier",
+              "SA3  |  HIV status as effect modifier",
               fontsize=8.8, fontweight="bold", color="#333333",
               transform=ax_d.transAxes, va="top")
 
@@ -414,12 +414,12 @@ def build_figure():
     )
     fig.text(
         0.02, 0.945,
-        "Findings are robust to heat-wave threshold (SA5 p95/p90) but sensitive to exposure-metric choice",
+        "Findings are robust to heat-wave threshold (SA4 p95/p90) but sensitive to exposure-metric choice",
         fontsize=7.2, color="#444444", ha="left", va="top",
     )
     fig.text(
         0.02, 0.929,
-        "(SA7 humidity-aware indices) and to HIV-status stratification (SA4 panel d).",
+        "(SA5 humidity-aware indices) and to HIV-status stratification (SA3 panel d).",
         fontsize=7.2, color="#444444", ha="left", va="top",
     )
 
