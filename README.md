@@ -10,7 +10,7 @@ Corresponding author: Craig Parker, Wits Planetary Health Research, University o
 
 ## What the study does
 
-Pooled secondary analysis of harmonised individual-level data from 14 adult Johannesburg cohorts (2005 to 2022; 9,745 participants; 598,433 biomarker observations). Each clinic visit is linked to ERA5-Land daily mean 2 m air temperature at the clinic over seven lag windows (day of visit, 1, 3, 7, 14, 21 days, and a 30-day cumulative mean) and to ward-level socioeconomic covariates from the Gauteng City-Region Observatory Quality of Life Survey.
+Pooled secondary analysis of harmonised individual-level data from 14 adult Johannesburg cohorts (2005 to 2022; 9,745 participants; 598,433 biomarker observations). Each clinic visit is linked to ERA5-Land daily mean 2 m air temperature over seven lag windows, at the participant's residential location for the three cohorts that recorded it (Thol'Impilo, MASC, PEARLS) and at the study clinic for the other eleven, (day of visit, 1, 3, 7, 14, 21 days, and a 30-day cumulative mean) and to ward-level socioeconomic covariates from the Gauteng City-Region Observatory Quality of Life Survey.
 
 Three stages:
 
@@ -96,6 +96,19 @@ ERA5-Land is openly available from the Copernicus Climate Data Store. GCRO Quali
 
 ## Running
 
+The quickest route is the pinned core requirements, which install with pip on Python 3.11 to 3.13:
+
+```
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements-core.txt
+export RP2_PRIMARY_EXPOSURE=era5_land
+PYTHONPATH=. pytest
+```
+
+`environment.yml` and `requirements.txt` are full snapshots of the analysis machine (September 2025) and include conda and Jupyter tooling the analysis does not need; use them only to reproduce that environment exactly. The DLNM cross-check (SA1) runs in R with `dlnm` 2.4.7, `lme4`, `mgcv`, `splines`, `dplyr`, `tidyr`, `lubridate`, `jsonlite` and the plotting packages loaded at the top of `dlnm_r/sa1_dlnm_validation_era5land.R`.
+
+Full pipeline:
+
 ```
 conda env create -f environment.yml
 conda activate heat-analysis
@@ -105,7 +118,7 @@ python run_pipeline.py --revision          # SA5, cluster CIs, parsimony diagnos
 pytest
 ```
 
-Standalone scripts at the root are run from the repository root with `PYTHONPATH=.` and the same environment variable. Every stage requires the harmonised dataset under `FINAL_DATASETS/`, which is not distributed; without it the code can be read but the analyses cannot be re-executed. Of the 272 tests, 216 run without the dataset; the other 56 check for it or load it and will fail or error in a checkout without it.
+Standalone scripts at the root are run from the repository root with `PYTHONPATH=.` and the same environment variable. Every stage requires the harmonised dataset under `FINAL_DATASETS/`, which is not distributed; without it the code can be read but the analyses cannot be re-executed. Of the 272 tests, 216 pass without the dataset (checked on 24 September 2026 in a clean environment built from `requirements-core.txt`); the other 56 check for it or load it and will fail or error in a checkout without it.
 
 ## Ethics
 
