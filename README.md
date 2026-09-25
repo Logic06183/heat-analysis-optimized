@@ -10,7 +10,7 @@ Corresponding author: Craig Parker, Wits Planetary Health Research, University o
 
 ## What the study does
 
-Pooled secondary analysis of harmonised individual-level data from 14 adult Johannesburg cohorts (2005 to 2022; 9,745 participants; 598,433 biomarker observations). Each clinic visit is linked to ERA5-Land daily mean 2 m air temperature over seven lag windows, at the participant's residential location for the three cohorts that recorded it (Thol'Impilo, MASC, PEARLS) and at the study clinic for the other eleven, (day of visit, 1, 3, 7, 14, 21 days, and a 30-day cumulative mean) and to ward-level socioeconomic covariates from the Gauteng City-Region Observatory Quality of Life Survey.
+Pooled secondary analysis of harmonised individual-level data from 14 adult Johannesburg cohorts (2005 to 2022; 9,745 participants; 598,433 biomarker observations). Each clinic visit is linked to ERA5-Land daily mean 2 m air temperature over seven lag windows (day of visit, 1, 3, 7, 14, 21 days, and a 30-day cumulative mean), taken at the participant's residential location for the three cohorts that recorded it (Thol'Impilo, MASC, PEARLS) and at the study clinic for the other eleven, and to ward-level socioeconomic covariates from the Gauteng City-Region Observatory Quality of Life Survey.
 
 Three stages:
 
