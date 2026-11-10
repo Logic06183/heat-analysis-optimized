@@ -13,13 +13,20 @@ Design      H1, H2, H3 and H5 compare each person with themselves across
             with one visit do not contribute.
 Tests
   H1  HIV x temperature interaction on each biomarker, in the three cohorts
-      that enrolled people with and without HIV. Pooled across biomarkers.
+      that enrolled people with and without HIV. Pooled across biomarkers by
+      inverse variance, which treats them as independent. In practice only
+      JHB_DPHRU_013 had enough people of each status with repeat visits.
   H2  Among people living with HIV: is a visit more likely to be viraemic
       (1,000 copies per mL or more) after warmer weeks?
       Pre-specified model: conditional logistic regression. Pre-specified
       fallback if it does not converge: linear probability model with
-      participant fixed effects. It did not converge (see `H2` in the output),
-      so the fallback is the reported result.
+      participant fixed effects. The conditional logit converges and is the
+      reported result; the fallback is kept in the output for comparison.
+      Correction, 10 November 2026: the first version of this script fitted
+      the model with BFGS, which stopped just short of the maximum (largest
+      score 0.13), and so reported the fallback (p=0.233). An independent
+      code review caught this. Newton's method reaches the maximum (score
+      about 1e-13) at the same estimate BFGS had stopped at.
   H3  Among people living with HIV: log CD4 count against temperature.
   H4  Is Cluster 3 membership associated with HIV within cohorts?
       Cochran-Mantel-Haenszel test across cohorts, plus a permutation that
@@ -27,11 +34,12 @@ Tests
   H5  Among people living with HIV: does low CD4 (<350) modify the
       temperature association for haematocrit and haemoglobin?
 Multiplicity Benjamini-Hochberg across the five primary p values.
-Post hoc    Stress tests of H3, run after seeing it pass. They are labelled
-            post hoc and can only weaken the result.
+Post hoc    Stress tests of H2 and H3, run after seeing them pass. They are
+            labelled post hoc and were not part of the decision rule.
 File out    r1_hiv_tests.json
-Reported    SA15 and its table. H3 passed the threshold (q=0.068) but
+Reported    SA15 and its table. H2 and H3 met the rule (q=0.034 each). H3
             vanished when the first 90 days of follow-up were excluded.
+            H2 (lower odds of viraemia after warmer weeks) did not.
 """
 
 import numpy as np
@@ -49,7 +57,7 @@ MIXED_HIV_COHORTS = ["JHB_DPHRU_013", "JHB_DPHRU_053", "JHB_SCHARP_004"]
 VIRAEMIA_THRESHOLD = 1000
 LOW_CD4 = 350
 N_PERMUTATIONS = 10000
-CONVERGENCE_TOLERANCE = 1e-2  # largest allowed absolute score (gradient) at the solution
+SCORE_TOLERANCE = 1e-6  # the gradient of the log likelihood must be this close to zero at the solution
 MIN_PARTICIPANTS = 30
 MIN_OBSERVATIONS = 100
 
@@ -194,34 +202,48 @@ def pool_inverse_variance(estimates):
     }
 
 
-def conditional_logit_viraemia(data, temperature):
+def conditional_logit_viraemia(data, temperature, extra_covariates=None):
     """Conditional logistic regression of viraemia on temperature, matched on participant.
 
     Only participants with both viraemic and non-viraemic visits inform it.
-    Temperature and year are centred to help the optimiser. `converged`
-    checks the gradient at the reported solution.
+    Temperature and year are centred. The model is fitted by Newton's method.
+    `converged` is true when the estimates and standard errors are finite
+    and the gradient (score) at the solution is numerically zero.
+
+    `extra_covariates` is an optional function that takes the data and
+    returns more columns for the design (used by the post hoc checks).
+    Returns None if fewer than MIN_PARTICIPANTS participants inform the model.
     """
     data = data.dropna(subset=["viraemic", temperature]).copy()
     per_person = data.groupby(PARTICIPANT)["viraemic"].agg(["min", "max"])
     discordant = per_person.index[per_person["min"] != per_person["max"]]
     data = data[data[PARTICIPANT].isin(discordant)]
+    if data[PARTICIPANT].nunique() < MIN_PARTICIPANTS:
+        return None
 
-    design = pd.concat(
-        [
-            (data[[temperature]] - data[temperature].mean()).astype(float),
-            month_dummies(data),
-            (data[["year"]] - 2014).astype(float),
-        ],
-        axis=1,
-    )
+    blocks = [
+        (data[[temperature]] - data[temperature].mean()).astype(float),
+        month_dummies(data),
+        (data[["year"]] - 2014).astype(float),
+    ]
+    if extra_covariates is not None:
+        blocks.append(extra_covariates(data))
+    design = pd.concat(blocks, axis=1).astype(float)
+    design = design.loc[:, design.std() > 0]  # a column that does not vary cannot be estimated
+
     model = ConditionalLogit(
         data["viraemic"].values, design.values, groups=pd.factorize(data[PARTICIPANT])[0]
     )
-    fit = model.fit(method="bfgs", maxiter=2000, disp=0)
+    try:
+        fit = model.fit(method="newton", maxiter=200, disp=0)
+    except Exception as error:  # singular Hessian: the model is not estimable on these data
+        return {"converged": False, "error": repr(error), "n_part": int(data[PARTICIPANT].nunique())}
 
     largest_score = float(np.abs(model.score(fit.params)).max())
     converged = bool(
-        np.isfinite(fit.params).all() and largest_score < CONVERGENCE_TOLERANCE and abs(fit.params[0]) > 0
+        np.isfinite(fit.params).all()
+        and np.isfinite(fit.bse).all()
+        and largest_score < SCORE_TOLERANCE
     )
     return {
         "max_abs_score": largest_score,
@@ -230,6 +252,8 @@ def conditional_logit_viraemia(data, temperature):
         "se": float(fit.bse[0]),
         "p": float(fit.pvalues[0]),
         "OR": float(np.exp(fit.params[0])),
+        "OR_lo": float(np.exp(fit.params[0] - 1.96 * fit.bse[0])),
+        "OR_hi": float(np.exp(fit.params[0] + 1.96 * fit.bse[0])),
         "n_obs": int(len(data)),
         "n_part": int(data[PARTICIPANT].nunique()),
     }
@@ -307,7 +331,7 @@ def without_cohort(data, cohort):
 conditional_logit = conditional_logit_viraemia(plwh, PRIMARY)
 linear_probability = one_coefficient(plwh, "viraemic", PRIMARY)
 
-USE_CONDITIONAL_LOGIT = conditional_logit["converged"]
+USE_CONDITIONAL_LOGIT = bool(conditional_logit and conditional_logit["converged"])
 if USE_CONDITIONAL_LOGIT:
     h2_primary = conditional_logit
     h2_model = "conditional logit"
@@ -316,10 +340,10 @@ else:
     h2_model = "linear probability model with participant fixed effects (conditional logit did not converge)"
 
 
-def h2_fit(data, temperature):
-    """H2 with whichever model the convergence check selected."""
+def h2_fit(data, temperature, **options):
+    """H2 with the pre-specified model if it converged, otherwise the pre-specified fallback."""
     if USE_CONDITIONAL_LOGIT:
-        return conditional_logit_viraemia(data, temperature)
+        return conditional_logit_viraemia(data, temperature, **options)
     return one_coefficient(data, "viraemic", temperature)
 
 
@@ -333,7 +357,7 @@ results["H2"] = {
     "secondary": h2_fit(plwh, SECONDARY),
     "loco": {dropped: h2_fit(without_cohort(plwh, dropped), PRIMARY) for dropped in cohorts_with_viraemia},
 }
-print("H2", h2_model, h2_primary, flush=True)
+print("H2", h2_model, results["H2"]["primary"], flush=True)
 
 
 # --------------------------------------------------------------------------
@@ -380,6 +404,31 @@ results["H3_posthoc"] = {
 }
 for label, estimate in results["H3_posthoc"].items():
     print("H3 post hoc", label, estimate, flush=True)
+
+
+# The same checks for H2, run after the corrected fit showed that it also met the rule.
+# Viraemia, like CD4 count, changes fastest in the first months on treatment.
+if USE_CONDITIONAL_LOGIT:
+    after_first_180_days = plwh[plwh["days_since_first_visit"] > 180]
+    recorded = plwh.dropna(subset=["viraemic"])
+    in_first_90_days = recorded["days_since_first_visit"] <= 90
+    results["H2_posthoc"] = {
+        "s1_time_since_first_visit_cubic": conditional_logit_viraemia(
+            plwh, PRIMARY, extra_covariates=cubic_in_years_since_first_visit
+        ),
+        "s3_cohort_x_month": conditional_logit_viraemia(plwh, PRIMARY, extra_covariates=cohort_by_month_dummies),
+        "s4_drop_first_90_days": conditional_logit_viraemia(after_first_90_days, PRIMARY),
+        "s4_drop_first_180_days": conditional_logit_viraemia(after_first_180_days, PRIMARY),
+        # Each cohort on its own, to see whether one cohort carries the pooled estimate.
+        "by_cohort": {
+            cohort: conditional_logit_viraemia(plwh[plwh["cohort"] == cohort], PRIMARY)
+            for cohort in cohorts_with_viraemia
+        },
+        "share_viraemic_first_90_days": float(recorded.loc[in_first_90_days, "viraemic"].mean()),
+        "share_viraemic_after_90_days": float(recorded.loc[~in_first_90_days, "viraemic"].mean()),
+    }
+    for label, estimate in results["H2_posthoc"].items():
+        print("H2 post hoc", label, estimate, flush=True)
 
 
 # --------------------------------------------------------------------------

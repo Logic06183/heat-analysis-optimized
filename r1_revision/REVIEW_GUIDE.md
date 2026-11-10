@@ -96,9 +96,9 @@ Script `07_hiv_prespecified_tests.py`, output `r1_hiv_tests.json`.
 
 | Test | Estimate | p | q | Where |
 |---|---|---|---|---|
-| H1 HIV x temperature, mixed cohorts | 0.0043 SD per degree (-0.0008 to 0.0093) | 0.100 | 0.249 | `H1.primary`, `BH.H1` |
-| H2 viraemia within person | -0.0018 per degree | 0.233 | 0.388 | `H2.primary`, `BH.H2` |
-| H3 log CD4 within person | 0.0053 per degree | 0.014 | 0.068 | `H3.primary`, `BH.H3` |
+| H1 HIV x temperature, mixed cohorts | 0.0043 SD per degree (-0.0008 to 0.0093) | 0.100 | 0.166 | `H1.primary`, `BH.H1` |
+| H2 viraemia within person | odds ratio 0.963 per degree (0.935 to 0.992) | 0.013 | 0.034 | `H2.primary`, `BH.H2` |
+| H3 log CD4 within person | 0.0053 per degree | 0.014 | 0.034 | `H3.primary`, `BH.H3` |
 | H4 Cluster 3 by HIV within cohort | pooled odds ratio 1.86 | 0.578 | 0.722 | `H4`, `BH.H4` |
 | H5 low CD4 x temperature | 0.0007 SD per degree | 0.753 | 0.753 | `H5.primary`, `BH.H5` |
 
@@ -111,10 +111,25 @@ results are in `H1.per_biomarker`
 (hip circumference 0.036 SD per degree, p = 0.0004, uncorrected; the other 12 p from 0.05 to 0.99).
 
 H2 model choice. The pre-specified model was a conditional logit with a linear probability
-fallback. The script fits the conditional logit with BFGS and accepts it only if the largest absolute score at
-the solution is below 0.01. That check failed (`H2.conditional_logit.converged` is false,
-`max_abs_score` 0.13), so `H2.model_used` records the fallback. The conditional logit estimate where
-BFGS stopped is kept in the file (`H2.conditional_logit`: odds ratio 0.963 per degree, p = 0.013).
+fallback. The conditional logit converges (`H2.conditional_logit.converged` true, `max_abs_score`
+zero to machine precision) and is the reported result. The fallback is kept for comparison in
+`H2.linear_probability` (-0.0018 per degree, p = 0.233).
+
+Correction to H2, 10 November 2026. The first version of script 07 fitted this model with BFGS,
+which stopped just short of the maximum (largest score 0.13 against a tolerance of 0.01), so the
+script reported the fallback and a draft of the appendix said the model had not converged. An
+independent code review caught it. Newton's method reaches the maximum at the estimate BFGS had
+stopped at, so the estimate did not move; what changed is that it is now the reported result, and
+the q values with it (H1 0.249 to 0.166, H2 0.388 to 0.034, H3 0.068 to 0.034). The outputs before
+the correction are in the history of this branch.
+
+H2 against the decision rule: sign under the secondary window `H2.secondary` (odds ratio 0.994,
+p = 0.64); sign with each cohort left out `H2.loco` (all below 1; weakest without JHB_WRHI_001,
+0.981, p = 0.30). H2 post hoc checks (`H2_posthoc`): cubic in time since first visit 0.964
+(p = 0.050); first 90 days excluded 0.925 (p = 0.034; 227 participants); first 180 days excluded
+0.926 (p = 0.083); cohort-by-month terms not estimable; `by_cohort` below 1 in three cohorts and
+above 1 in two, with only JHB_WRHI_001 excluding 1 (0.932, p = 0.019). 49% of results in the first
+90 days were viraemic against 5% afterwards (`share_viraemic_first_90_days`, `share_viraemic_after_90_days`).
 
 H3 post hoc checks (`H3_posthoc`): with visits in the first 90 days excluded the estimate is
 -0.0009, p = 0.59 (`s4_drop_first_90_days`). The other entries are the cubic time trend
@@ -158,9 +173,6 @@ p values are now (1 + count) / (1 + permutations), so a p of 0 becomes 0.0001, a
 script 02 now also reports an interval for each model's own R-squared (`r2_full_lo`, `r2_full_hi`).
 It uses the same resamples, so the increments and their intervals are unchanged.
 
-One thing changed in what the output files show. The HIV tests were first run as two scripts: the
-pre-specified set, then a second script after the conditional logit for H2 was found not to have
-converged. The Benjamini-Hochberg q values reported in the paper use the fallback model's p value
-for H2 and were computed from the two files together. The single script 07 now applies the
-convergence check, the fallback and the correction in one place, so `r1_hiv_tests.json` holds the
-reported q values directly. No estimate changed.
+The HIV tests were first run as two scripts and are now the single script 07, which applies the
+model choice for H2 and the Benjamini-Hochberg correction in one place, so `r1_hiv_tests.json` holds
+the reported q values directly. The correction to H2 is described in section 4.
