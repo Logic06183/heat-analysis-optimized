@@ -1,7 +1,7 @@
 {
-  "log": {
-    "primary_exposure": "era5_temp_lag7d_c (rolling 7-day mean)",
-    "T_primary_nonmissing": 1.0
+  "exposure": {
+    "primary": "era5_temp_lag7d_c (rolling 7-day mean)",
+    "secondary": "mean of lags 0, 1, 3"
   },
   "H1": {
     "primary": {
@@ -260,24 +260,50 @@
     }
   },
   "H2": {
+    "model_used": "linear probability model with participant fixed effects (conditional logit did not converge)",
     "primary": {
-      "model": "conditional logit",
-      "est": 0.0,
-      "se": 0.012310688027898335,
-      "p": 1.0,
-      "OR_per_C": 1.0,
-      "n_obs": 17905,
-      "n_part": 1878,
+      "est": -0.0017522052152514275,
+      "se": 0.0014691001691992146,
+      "p": 0.23298436728590477,
+      "n_obs": 22008,
+      "n_part": 2692,
       "cohorts": [
         "JHB_ACTG_015",
         "JHB_ACTG_016",
         "JHB_ACTG_019",
+        "JHB_Aurum_009",
         "JHB_Ezin_002",
         "JHB_WRHI_001",
         "JHB_WRHI_003"
       ]
     },
-    "log10vl": {
+    "conditional_logit": {
+      "max_abs_score": 0.1263824202724626,
+      "converged": false,
+      "est": -0.03749392504414298,
+      "se": 0.015017887936306292,
+      "p": 0.012538404604523422,
+      "OR": 0.9632002691021646,
+      "n_obs": 17905,
+      "n_part": 1878
+    },
+    "linear_probability": {
+      "est": -0.0017522052152514275,
+      "se": 0.0014691001691992146,
+      "p": 0.23298436728590477,
+      "n_obs": 22008,
+      "n_part": 2692,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001",
+        "JHB_WRHI_003"
+      ]
+    },
+    "log10_viral_load": {
       "est": -0.00531873658167622,
       "se": 0.004367347336338496,
       "p": 0.22328423211433857,
@@ -294,17 +320,16 @@
       ]
     },
     "secondary": {
-      "model": "conditional logit",
-      "est": 0.0,
-      "se": 0.010234295264901749,
-      "p": 1.0,
-      "OR_per_C": 1.0,
-      "n_obs": 17905,
-      "n_part": 1878,
+      "est": 0.00044065520616508194,
+      "se": 0.0012891121470133431,
+      "p": 0.732479998407916,
+      "n_obs": 22008,
+      "n_part": 2692,
       "cohorts": [
         "JHB_ACTG_015",
         "JHB_ACTG_016",
         "JHB_ACTG_019",
+        "JHB_Aurum_009",
         "JHB_Ezin_002",
         "JHB_WRHI_001",
         "JHB_WRHI_003"
@@ -312,61 +337,56 @@
     },
     "loco": {
       "JHB_ACTG_015": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.01334066130864771,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 15753,
-        "n_part": 1735,
+        "est": -0.0005263302431190103,
+        "se": 0.001525688181743825,
+        "p": 0.7301102273405493,
+        "n_obs": 19829,
+        "n_part": 2540,
         "cohorts": [
           "JHB_ACTG_016",
           "JHB_ACTG_019",
+          "JHB_Aurum_009",
           "JHB_Ezin_002",
           "JHB_WRHI_001",
           "JHB_WRHI_003"
         ]
       },
       "JHB_ACTG_016": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.012693031710391179,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 17175,
-        "n_part": 1781,
+        "est": -0.0013495100460377992,
+        "se": 0.0014888007270456064,
+        "p": 0.36470247066311023,
+        "n_obs": 21265,
+        "n_part": 2589,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_019",
+          "JHB_Aurum_009",
           "JHB_Ezin_002",
           "JHB_WRHI_001",
           "JHB_WRHI_003"
         ]
       },
       "JHB_ACTG_019": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.012800746611108022,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 15453,
-        "n_part": 1783,
+        "est": -0.00036640507439294643,
+        "se": 0.0015996527697439377,
+        "p": 0.8188278159250496,
+        "n_obs": 19494,
+        "n_part": 2592,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_016",
+          "JHB_Aurum_009",
           "JHB_Ezin_002",
           "JHB_WRHI_001",
           "JHB_WRHI_003"
         ]
       },
       "JHB_Aurum_009": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.012310688027898335,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 17905,
-        "n_part": 1878,
+        "est": -0.0028697699290107788,
+        "se": 0.0016125446431522112,
+        "p": 0.07513276496825154,
+        "n_obs": 20041,
+        "n_part": 2284,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_016",
@@ -377,49 +397,46 @@
         ]
       },
       "JHB_Ezin_002": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.015207146688460231,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 9977,
-        "n_part": 919,
+        "est": -0.0035282349274685975,
+        "se": 0.0018068063211700265,
+        "p": 0.0508496271467468,
+        "n_obs": 13592,
+        "n_part": 1663,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_016",
           "JHB_ACTG_019",
+          "JHB_Aurum_009",
           "JHB_WRHI_001",
           "JHB_WRHI_003"
         ]
       },
       "JHB_WRHI_001": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.015894629532907698,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 13294,
-        "n_part": 1300,
+        "est": -0.0006100358189068253,
+        "se": 0.0015513222162644824,
+        "p": 0.6941451467279797,
+        "n_obs": 17307,
+        "n_part": 2092,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_016",
           "JHB_ACTG_019",
+          "JHB_Aurum_009",
           "JHB_Ezin_002",
           "JHB_WRHI_003"
         ]
       },
       "JHB_WRHI_003": {
-        "model": "conditional logit",
-        "est": 0.0,
-        "se": 0.012323583929983853,
-        "p": 1.0,
-        "OR_per_C": 1.0,
-        "n_obs": 17873,
-        "n_part": 1872,
+        "est": -0.00220082016464118,
+        "se": 0.0015611917390510796,
+        "p": 0.15862673884054435,
+        "n_obs": 20520,
+        "n_part": 2392,
         "cohorts": [
           "JHB_ACTG_015",
           "JHB_ACTG_016",
           "JHB_ACTG_019",
+          "JHB_Aurum_009",
           "JHB_Ezin_002",
           "JHB_WRHI_001"
         ]
@@ -567,6 +584,109 @@
       }
     }
   },
+  "H3_posthoc": {
+    "base": {
+      "est": 0.00529050603816711,
+      "se": 0.0021452390434419403,
+      "p": 0.013656972492897684,
+      "n_obs": 13819,
+      "n_part": 2905,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001",
+        "JHB_WRHI_003"
+      ]
+    },
+    "s1_time_since_first_visit_cubic": {
+      "est": 0.004001998952455377,
+      "se": 0.0020462563285912195,
+      "p": 0.05049270291769252,
+      "n_obs": 13819,
+      "n_part": 2905,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001",
+        "JHB_WRHI_003"
+      ]
+    },
+    "s2_person_linear_trend": {
+      "est": 0.0027489756631531594,
+      "se": 0.0019908423816298493,
+      "p": 0.1673372961780999,
+      "n_obs": 13819,
+      "n_part": 2905,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001",
+        "JHB_WRHI_003"
+      ]
+    },
+    "s4_drop_first_90_days": {
+      "est": -0.0009276080294250576,
+      "se": 0.0017319625607791838,
+      "p": 0.5922474488453924,
+      "n_obs": 7646,
+      "n_part": 1745,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001"
+      ]
+    },
+    "s3_cohort_x_month": {
+      "est": 0.0041076322330155035,
+      "se": 0.0021990097365440033,
+      "p": 0.0617695480025417,
+      "n_obs": 13819,
+      "n_part": 2905,
+      "cohorts": [
+        "JHB_ACTG_015",
+        "JHB_ACTG_016",
+        "JHB_ACTG_019",
+        "JHB_Aurum_009",
+        "JHB_Ezin_002",
+        "JHB_WRHI_001",
+        "JHB_WRHI_003"
+      ]
+    },
+    "s5_adjust_hct_same_visit": {
+      "est": 0.003099468733763086,
+      "se": 0.003082202449539851,
+      "p": 0.3146070948452554,
+      "n_obs": 7296,
+      "n_part": 1563,
+      "cohorts": [
+        "JHB_Ezin_002",
+        "JHB_WRHI_001"
+      ]
+    },
+    "s5_same_sample_no_hct": {
+      "est": 0.002559904118921515,
+      "se": 0.003118291026798129,
+      "p": 0.41168514316139737,
+      "n_obs": 7296,
+      "n_part": 1563,
+      "cohorts": [
+        "JHB_Ezin_002",
+        "JHB_WRHI_001"
+      ]
+    }
+  },
   "H4": {
     "cmh_stat": 0.3095583516372237,
     "p": 0.5779513249224307,
@@ -687,8 +807,8 @@
       "q": 0.2492072357321316
     },
     "H2": {
-      "p": 1.0,
-      "q": 1.0
+      "p": 0.23298436728590477,
+      "q": 0.38830727880984134
     },
     "H3": {
       "p": 0.013656972492897684,
@@ -696,11 +816,11 @@
     },
     "H4": {
       "p": 0.5779513249224307,
-      "q": 0.9406957452684817
+      "q": 0.7224391561530384
     },
     "H5": {
       "p": 0.7525565962147853,
-      "q": 0.9406957452684817
+      "q": 0.7525565962147853
     }
   }
 }

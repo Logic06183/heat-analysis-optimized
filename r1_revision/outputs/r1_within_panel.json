@@ -3,9 +3,9 @@
     "n": 298,
     "k": 3,
     "sizes": [
-      99,
+      38,
       161,
-      38
+      99
     ],
     "hiv_prev_by_cluster": [
       0.316,
@@ -14,7 +14,7 @@
     ],
     "overall_hiv": 0.18456375838926176,
     "max_prev": 0.3157894736842105,
-    "perm_p": 0.0282
+    "perm_p": 0.0282971702829717
   },
   "JHB_DPHRU_013": {
     "n": 246,
@@ -31,7 +31,7 @@
     ],
     "overall_hiv": 0.6016260162601627,
     "max_prev": 1.0,
-    "perm_p": 0.0265
+    "perm_p": 0.026597340265973404
   },
   "hivpos_hct_hb_vl": {
     "n": 1896,
@@ -95,8 +95,8 @@
       }
     },
     "viraemia_max": 1.0,
-    "viraemia_perm_p": 0.8601,
+    "viraemia_perm_p": 0.8601139886011399,
     "female_max": 1.0,
-    "female_perm_p": 0.1051
+    "female_perm_p": 0.10518948105189481
   }
 }

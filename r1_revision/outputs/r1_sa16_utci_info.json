@@ -1,6 +1,16 @@
 {
   "coverage": 1.0,
+  "coverage_by_utci_column": {
+    "temp_lag_0d": 1.0,
+    "temp_lag_1d": 1.0,
+    "temp_lag_3d": 1.0,
+    "temp_lag_7d": 1.0,
+    "temp_lag_14d": 1.0,
+    "temp_lag_21d": 1.0,
+    "temp_lag_30d": 1.0,
+    "era5_temp_range_c": 1.0
+  },
   "corr_utci7_air7": 0.9377317968452282,
   "source": "CDS derived-utci-historical-timeseries v1.1 consolidated, accessed 2026-11-10",
-  "finished": "Tue Nov 10 10:28:39 2026"
+  "finished": "Tue Nov 10 14:31:50 2026"
 }

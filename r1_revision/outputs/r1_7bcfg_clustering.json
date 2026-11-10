@@ -102,6 +102,18 @@
     }
   },
   "n_availability_patterns": 36,
+  "pattern_column_order": [
+    "creatinine",
+    "diastolic_bp",
+    "heart_rate",
+    "cd4_count",
+    "viral_load",
+    "ldl_cholesterol",
+    "waist_hip_ratio",
+    "body_fat_percent",
+    "hemoglobin",
+    "hematocrit"
+  ],
   "top_patterns": {
     "0110000000": 2130,
     "0001000000": 1778,
@@ -114,6 +126,7 @@
     "1111110010": 300,
     "1000000011": 298
   },
+  "n_hiv_status_unknown_counted_as_negative": 0,
   "variants": [
     {
       "variant": "primary_rebuild",
@@ -132,7 +145,7 @@
       "hiv_enriched_prev": 0.7781411828836196,
       "hiv_enriched_n": 3669,
       "perm_max": 0.5829991980753809,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 1.0,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 1.0,
@@ -156,7 +169,7 @@
       "hiv_enriched_prev": 0.8351608187134503,
       "hiv_enriched_n": 2736,
       "perm_max": 0.564327485380117,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.19929947460595446,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.3590632894342348,
@@ -179,7 +192,7 @@
       "hiv_enriched_prev": 0.8445845697329377,
       "hiv_enriched_n": 2696,
       "perm_max": 0.5641879393266741,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.19649737302977233,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.3850745340619369
@@ -201,7 +214,7 @@
       "hiv_enriched_prev": 0.7810683642402436,
       "hiv_enriched_n": 3613,
       "perm_max": 0.5838011226944667,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.9821366024518389,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.9620963337151099
@@ -246,7 +259,7 @@
       "hiv_enriched_prev": 0.778236914600551,
       "hiv_enriched_n": 3630,
       "perm_max": 0.5846645367412141,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.9831873905429072,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.9637667140477525
@@ -268,7 +281,7 @@
       "hiv_enriched_prev": 0.20223577235772358,
       "hiv_enriched_n": 984,
       "perm_max": 0.26433915211970077,
-      "perm_p": 0.8223,
+      "perm_p": 0.8223177682231777,
       "c3_hivpos_retained": 0.0,
       "c3_hivpos_in_sample": 76,
       "ari_vs_published": 0.628114571717106,
@@ -317,7 +330,7 @@
       "hiv_enriched_prev": 0.6493639720968404,
       "hiv_enriched_n": 4874,
       "perm_max": 0.5514822357999547,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.9870402802101577,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.7725093390170574,
@@ -325,8 +338,10 @@
       "aic": 167694.51805635195,
       "silhouette_3000": 0.11610779416776643,
       "boot_ari_mean": 0.9827442827575226,
+      "boot_ari_median": 0.9974187864739665,
       "boot_ari_lo": 0.9935532222362445,
-      "boot_ari_hi": 0.9987197330353322
+      "boot_ari_hi": 0.9987197330353322,
+      "boot_ari_share_below_0_9": 0.015
     },
     {
       "variant": "c_k3",
@@ -345,7 +360,7 @@
       "hiv_enriched_prev": 0.7781411828836196,
       "hiv_enriched_n": 3669,
       "perm_max": 0.5829991980753809,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 1.0,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 1.0,
@@ -353,8 +368,10 @@
       "aic": 114690.41512984927,
       "silhouette_3000": 0.094657631064692,
       "boot_ari_mean": 0.9865938092521611,
+      "boot_ari_median": 0.9957647308623974,
       "boot_ari_lo": 0.8250071691241723,
-      "boot_ari_hi": 0.998593202668611
+      "boot_ari_hi": 0.998593202668611,
+      "boot_ari_share_below_0_9": 0.03
     },
     {
       "variant": "c_k4",
@@ -375,7 +392,7 @@
       "hiv_enriched_prev": 0.955893536121673,
       "hiv_enriched_n": 1315,
       "perm_max": 0.5839357429718876,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.4392294220665499,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.8224980573941825,
@@ -383,8 +400,10 @@
       "aic": 93938.04659510449,
       "silhouette_3000": 0.060929716778729534,
       "boot_ari_mean": 0.807332336953587,
+      "boot_ari_median": 0.8032537652432625,
       "boot_ari_lo": 0.5087784486421066,
-      "boot_ari_hi": 0.9916313136493796
+      "boot_ari_hi": 0.9916313136493796,
+      "boot_ari_share_below_0_9": 0.825
     },
     {
       "variant": "c_k5",
@@ -407,7 +426,7 @@
       "hiv_enriched_prev": 0.9909365558912386,
       "hiv_enriched_n": 1655,
       "perm_max": 0.5997624703087886,
-      "perm_p": 0.0,
+      "perm_p": 9.999000099990002e-05,
       "c3_hivpos_retained": 0.5418563922942207,
       "c3_hivpos_in_sample": 2855,
       "ari_vs_published": 0.7458779069958635,
@@ -415,15 +434,17 @@
       "aic": 74196.05114627318,
       "silhouette_3000": 0.06010751699549716,
       "boot_ari_mean": 0.8719571107447665,
+      "boot_ari_median": 0.8679999216948073,
       "boot_ari_lo": 0.462623901387512,
-      "boot_ari_hi": 0.9931873231707211
+      "boot_ari_hi": 0.9931873231707211,
+      "boot_ari_share_below_0_9": 0.52
     }
   ],
   "run": {
     "n_perm": 10000,
     "n_boot": 200,
     "seed": 42,
-    "seconds": 165.77052998542786,
-    "finished": "Tue Nov 10 09:40:01 2026"
+    "seconds": 153.43552994728088,
+    "finished": "Tue Nov 10 14:15:22 2026"
   }
 }
