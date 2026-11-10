@@ -18,7 +18,7 @@ Three stages:
 2. **Stage 2, effect modification.** SHAP interaction values for each retained biomarker against sex, HIV status, age, socioeconomic covariates and other temperature lags, tested against a permutation null with Benjamini–Hochberg control at q=0·10.
 3. **Stage 3, grouping.** Participant-level SHAP profiles across the retained biomarkers, standardised, reduced by principal components to 85% of variance, and grouped by a Gaussian mixture model (k=3, full covariance, first ten components, seed 42). Stability by 500-resample bootstrap and adjusted Rand index.
 
-Eleven sensitivity analyses are reported in the paper's appendix (SA1 to SA11). Five further analyses were run, or drafted, and are not reported; they are listed below so the code is accounted for.
+Eleven sensitivity analyses are reported in the paper's appendix (SA1 to SA11), and the first-round revision added SA12 to SA16; their scripts and aggregate outputs are in `r1_revision/` (see its README). Five further analyses were run, or drafted, and are not reported; they are listed below so the code is accounted for.
 
 ## Layout
 

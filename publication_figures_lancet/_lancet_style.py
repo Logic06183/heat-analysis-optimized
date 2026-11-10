@@ -61,7 +61,7 @@ BIOMARKER_PRETTY = {
     "diastolic_bp":     "Diastolic BP",
     "systolic_bp":      "Systolic BP",
     "heart_rate":       "Heart rate",
-    "viral_load":       "Viral load",
+    "viral_load":       "HIV viral load",
     "cd4_count":        "CD4 count",
     "body_fat_percent": "Body fat %",
     "waist_hip_ratio":  "Waist-hip ratio",
@@ -109,14 +109,14 @@ def _md1(v: float) -> str:
 
 
 CLUSTER_LABELS = {
-    0: f"Cluster 1  Younger marginalised ({_md1(CLUSTER_PCT[0])}%)",
-    1: f"Cluster 2  Older, employed ({_md1(CLUSTER_PCT[1])}%)",
-    2: f"Cluster 3  High HIV burden ({_md1(CLUSTER_PCT[2])}%)",
+    0: f"Cluster 1 ({_md1(CLUSTER_PCT[0])}%)",
+    1: f"Cluster 2 ({_md1(CLUSTER_PCT[1])}%)",
+    2: f"Cluster 3, HIV-enriched ({_md1(CLUSTER_PCT[2])}%)",
 }
 CLUSTER_SHORT = {
-    0: "Younger marginalised",
-    1: "Older, employed",
-    2: "High HIV burden",
+    0: "Cluster 1",
+    1: "Cluster 2",
+    2: "Cluster 3",
 }
 
 # Sequential heatmap for |SHAP| magnitudes (perceptually uniform, manuscript convention: warm = more impact)

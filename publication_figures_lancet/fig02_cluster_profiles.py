@@ -1,9 +1,9 @@
-"""Figure 2 - Vulnerability clusters: PCA structure, heat-sensitivity, demography.
+"""Figure 2 - Response profiles: PCA structure, composite SHAP score, demography.
 
 Spec (manuscript v1, Section S9):
   (A) PCA scatter PC1 vs PC2 of 9,293 patients, coloured by GMM k=3 cluster,
       with 50% covariance ellipses per cluster.
-  (B) Composite heat-sensitivity score by cluster, with 2,000-replicate
+  (B) Composite temperature SHAP score by cluster, with 2,000-replicate
       bootstrap 95% CIs. Zero line marks the population reference.
   (C) Demographic composition by cluster (percent HIV-positive, female,
       unemployed, informal dwelling; mean age shown separately) with
@@ -201,8 +201,8 @@ def panel_heat_sensitivity(ax):
         tick.set_color(category_label_colour(CLUSTER_COLOURS[c]))
         tick.set_fontweight("semibold")
     ax.invert_yaxis()
-    ax.set_xlabel("Composite heat-sensitivity score  (z-scaled)")
-    ax.set_title("Heat-sensitivity by vulnerability cluster  (mean, 95% CI)",
+    ax.set_xlabel("Composite temperature SHAP score  (z-scaled)")
+    ax.set_title("Composite SHAP score by cluster  (mean, 95% CI)",
                  fontsize=8.2, pad=6, loc="center")
     ax.set_xlim(-0.85, 0.60)
     ax.grid(axis="x", color="#EFEFEF", linewidth=0.4, zorder=0)
@@ -305,7 +305,7 @@ def panel_hiv_prevalence(ax):
     ax.set_xlabel("HIV-positive prevalence (%)")
     ax.set_xlim(0, 100)
     ax.set_ylim(-0.6, len(clusters) - 0.4)
-    ax.set_title("HIV burden by cluster (95% CI)", fontsize=8.2, pad=6, loc="center")
+    ax.set_title("HIV-positive prevalence by cluster (95% CI)", fontsize=8.2, pad=6, loc="center")
 
 
 def build_figure():
@@ -341,7 +341,7 @@ def build_figure():
     if not ARTWORK_MODE:
         fig.text(
             0.02, 0.97,
-            "Figure 2  |  Vulnerability clusters: PCA structure, HIV burden, heat-sensitivity, and demographic composition",
+            "Figure 2  |  Response profiles: PCA structure, HIV-positive prevalence, composite temperature SHAP score and demographic composition",
             fontsize=9.8, fontweight="bold", ha="left", va="top",
         )
 
@@ -351,7 +351,7 @@ def build_figure():
     save_at_width(fig, OUT_DIR, "fig02_cluster_profiles", span="double")
     write_caption(
         OUT_DIR, "fig02_cluster_profiles",
-        "Figure 2: Vulnerability clusters: PCA structure, HIV burden, heat sensitivity, and demographic composition. (a) Two-dimensional principal component projection (PC1 vs PC2) of participant-level SHAP profiles, coloured by cluster assignment (k=3) with ellipses enclosing 50% of each cluster's fitted probability mass; this is a two-dimensional view of a grouping that used the first ten principal components, so some visual overlap is expected and does not mean the clusters are inseparable. (b) HIV-positive prevalence within each cluster, with 95% confidence intervals. (c) Mean composite heat-sensitivity score (z-scaled) for each cluster relative to the population reference, with 95% confidence intervals. (d) Socio-demographic composition of each cluster (coloured bars) with bootstrap 95% confidence intervals from 2,000 resamples; within each category the three coloured bars are the clusters, arranged in a vertical key, with the HIV-burden cluster (Cluster 3) in red. The bootstrap intervals and the adjusted Rand index measure different things: the intervals show how much each cluster's composition varies across resamples, and the adjusted Rand index (Results) shows whether the same participants are grouped together each time.",
+        "Figure 2: Response profiles: PCA structure, HIV-positive prevalence, composite temperature SHAP score and demographic composition. (a) Two-dimensional principal component projection (PC1 vs PC2) of participant-level SHAP profiles, coloured by cluster assignment (k=3) with ellipses enclosing 50% of each cluster's fitted probability mass; this is a two-dimensional view of a grouping that used the first ten principal components, so some visual overlap is expected and does not mean the clusters are inseparable. (b) HIV-positive prevalence within each cluster, with 95% confidence intervals. (c) Mean composite score (mean of standardised temperature SHAP values) for each cluster relative to the population reference, with 95% confidence intervals. (d) Socio-demographic composition of each cluster (coloured bars) with bootstrap 95% confidence intervals from 2,000 resamples; within each category the three coloured bars are the clusters, arranged in a vertical key, with the HIV-enriched cluster (Cluster 3) in red; appendix table S12 shows that cluster membership largely follows cohort and biomarker panel. The bootstrap intervals and the adjusted Rand index measure different things: the intervals show how much each cluster's composition varies across resamples, and the adjusted Rand index (Results) shows whether the same participants are grouped together each time.",
         "Panels b and d report the same HIV prevalence from a single source. Clusters are numbered 1-3 in reading order of the legend.",
     )
     plt.close(fig)

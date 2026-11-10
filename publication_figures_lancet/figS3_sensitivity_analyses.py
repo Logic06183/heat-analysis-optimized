@@ -334,24 +334,24 @@ def build_figure():
         not_mod = sorted(retained - set(effect_mods) - set(no_comparator))
 
     ax_d.text(0.0, 1.02,
-              "SA3  |  HIV status as effect modifier",
+              "SA3  |  Lag-profile agreement by HIV status",
               fontsize=8.8, fontweight="bold", color="#333333",
               transform=ax_d.transAxes, va="top")
 
     n_effect = len(effect_mods)
-    n_total = len(BIOMARKER_ORDER)
+    n_total = len(BIOMARKER_ORDER) - len(no_comparator)  # biomarkers with an HIV-negative comparator
     # Restrained headline: moderate-weight figure + single descriptor line beneath
     # (was a 26pt display number with text wrapped awkwardly beside it).
     ax_d.text(0.02, 0.925, f"{n_effect} of {n_total}",
               fontsize=15, color="#B22246", fontweight="bold",
               transform=ax_d.transAxes, va="top")
     ax_d.text(0.02, 0.80,
-              "retained biomarkers show distinct lag-response\nprofiles by HIV status",
+              "comparable biomarkers had ρ < 0·70 between\nHIV-positive and HIV-negative lag profiles",
               fontsize=7.0, color="#222222", linespacing=1.35,
               transform=ax_d.transAxes, va="top")
 
     ax_d.text(0.0, 0.64,
-              "Effect modifiers (HIV+ vs HIV- ρ < 0.70):",
+              "Lower agreement (ρ < 0.70):",
               fontsize=7.1, fontweight="semibold", color="#333333",
               transform=ax_d.transAxes, va="top")
 
@@ -371,7 +371,7 @@ def build_figure():
 
     # Not modified: lowered to 0.18 (was 0.22) so it clears the last bullet
     # row of the effect-modifier column.
-    ax_d.text(0.0, 0.18, "Not modified:", fontsize=7.0, fontweight="semibold",
+    ax_d.text(0.0, 0.18, "Concordant (ρ ≥ 0.70):", fontsize=7.0, fontweight="semibold",
               color="#555555", transform=ax_d.transAxes, va="top")
     for i, bm in enumerate(not_mod):
         pretty = BIOMARKER_PRETTY.get(bm, bm)
