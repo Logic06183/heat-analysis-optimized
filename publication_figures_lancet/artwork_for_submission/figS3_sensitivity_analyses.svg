@@ -109,7 +109,7 @@ z
     <g id="ytick_7">
      <g id="line2d_12"/>
      <g id="text_12">
-      <text style="font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="66.007969" y="210.608727" transform="rotate(-0 66.007969 210.608727)">Viral load</text>
+      <text style="font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="66.007969" y="210.608727" transform="rotate(-0 66.007969 210.608727)">HIV viral load</text>
      </g>
     </g>
     <g id="ytick_8">
@@ -932,7 +932,7 @@ L 321.012781 587.873221
       </g>
      </g>
      <g id="text_98">
-      <text style="font-size: 6.4px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #1b9e77" transform="translate(209.131687 622.191955) rotate(-38)">Viral load</text>
+      <text style="font-size: 6.4px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #1b9e77" transform="translate(209.131687 622.191955) rotate(-38)">HIV viral load</text>
      </g>
     </g>
     <g id="xtick_24">
@@ -1605,17 +1605,17 @@ z
    <g id="matplotlib.axis_9"/>
    <g id="matplotlib.axis_10"/>
    <g id="text_148">
-    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #333333" x="400.902544" y="415.213259" transform="rotate(-0 400.902544 415.213259)">SA3  |  HIV status as effect modifier</text>
+    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #333333" x="400.902544" y="415.213259" transform="rotate(-0 400.902544 415.213259)">SA3  |  Lag-profile agreement by HIV status</text>
    </g>
    <g id="text_149">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #b22246" x="403.861425" y="436.999455" transform="rotate(-0 403.861425 436.999455)">7 of 10</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #b22246" x="403.861425" y="436.999455" transform="rotate(-0 403.861425 436.999455)">7 of 8</text>
    </g>
    <g id="text_150">
-    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #222222" transform="translate(403.861425 454.241104)">retained biomarkers show distinct lag-response</text>
-    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #222222" transform="translate(403.861425 462.593689)">profiles by HIV status</text>
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #222222" transform="translate(403.861425 454.241104)">comparable biomarkers had ρ &lt; 0·70 between</text>
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #222222" transform="translate(403.861425 462.593689)">HIV-positive and HIV-negative lag profiles</text>
    </g>
    <g id="text_151">
-    <text style="font-weight: 600; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #333333" x="400.902544" y="483.798123" transform="rotate(-0 400.902544 483.798123)">Effect modifiers (HIV+ vs HIV- ρ &lt; 0·70):</text>
+    <text style="font-weight: 600; font-size: 7.1px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #333333" x="400.902544" y="483.798123" transform="rotate(-0 400.902544 483.798123)">Lower agreement (ρ &lt; 0·70):</text>
    </g>
    <g id="text_152">
     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #7f7f7f" x="403.861425" y="496.441755" transform="rotate(-0 403.861425 496.441755)">•  Body fat %</text>
@@ -1639,13 +1639,13 @@ z
     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #7f7f7f" x="477.833428" y="496.35888" transform="rotate(-0 477.833428 496.35888)">•  Waist-hip ratio</text>
    </g>
    <g id="text_159">
-    <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #555555" x="400.902544" y="568.161879" transform="rotate(-0 400.902544 568.161879)">Not modified:</text>
+    <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #555555" x="400.902544" y="568.161879" transform="rotate(-0 400.902544 568.161879)">Concordant (ρ ≥ 0·70):</text>
    </g>
    <g id="text_160">
     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #e6550d" x="403.861425" y="579.043314" transform="rotate(-0 403.861425 579.043314)">•  Heart rate</text>
    </g>
    <g id="text_161">
-    <text style="font-size: 6.6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #555555" x="400.902544" y="588.167754" transform="rotate(-0 400.902544 588.167754)">No HIV-negative comparator: CD4 count, Viral load</text>
+    <text style="font-size: 6.6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #555555" x="400.902544" y="588.167754" transform="rotate(-0 400.902544 588.167754)">No HIV-negative comparator: CD4 count, HIV viral load</text>
    </g>
    <g id="text_162">
     <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #111111" x="394.984784" y="397.449193" transform="rotate(-0 394.984784 397.449193)">d</text>

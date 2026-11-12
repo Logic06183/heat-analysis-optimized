@@ -1,0 +1,19 @@
+{
+  "xgboost": "3.0.2",
+  "pandas": "2.3.0",
+  "numpy": "2.2.6",
+  "n_boot": 1000,
+  "seed": 42,
+  "exposure": "era5_land",
+  "temperature_columns": [
+    "temp_lag_0d",
+    "temp_lag_1d",
+    "temp_lag_3d",
+    "temp_lag_7d",
+    "temp_lag_14d",
+    "temp_lag_21d",
+    "temp_lag_30d",
+    "era5_temp_range_c"
+  ],
+  "finished": "Tue Nov 10 14:17:37 2026"
+}

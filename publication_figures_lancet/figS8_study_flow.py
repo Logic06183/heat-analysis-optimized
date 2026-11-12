@@ -19,8 +19,8 @@ main = [
  ("9,745 participants linked to temperature\nand socioeconomic status", "ERA5-Land daily mean (about 9 km); ward-level match to the GCRO survey"),
  ("24 biomarkers screened for a temperature signal (Stage 1)", "Participant-grouped cross-validated R²"),
  ("10 biomarkers retained", "Six physiological domains; cross-validated R² of 0·05 or more"),
- ("9,293 participants grouped by heat-related pattern (Stage 3)", "Principal component analysis, then Gaussian mixture model (k=3)"),
- ("Three heat-vulnerability profiles", "Cluster 1, n=4,377; Cluster 2, n=1,247; Cluster 3, n=3,669"),
+ ("9,293 participants grouped by SHAP profile (Stage 3)", "Principal component analysis, then Gaussian mixture model (k=3)"),
+ ("Three response profiles (clusters)", "Cluster 1, n=4,377; Cluster 2, n=1,247; Cluster 3, n=3,669"),
 ]
 side = {
  2: "6 not assessed: ESR and CD8 count (too few studies); eGFR (derived from creatinine); high-sensitivity CRP (no harmonised observations); fat mass index and total fat mass (not carried into the pipeline)",
