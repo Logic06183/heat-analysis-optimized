@@ -114,9 +114,9 @@ def within_person_regression(data, outcome, predictors, extra_covariates=None, p
     extra_covariates  optional function: data -> DataFrame of more adjusters
     person_trends     also remove each participant's own linear time trend
 
-    Returns None when there is too little data or a predictor has no
-    within-person variation. Otherwise a dict with (estimate, SE, p) for each
-    predictor and the sample size.
+    Returns None when there is too little data or a predictor never varies.
+    A predictor with no variation within people is left out of `estimates`.
+    Otherwise a dict with (estimate, SE, p) per predictor and the sample size.
     """
     data = data.dropna(subset=[outcome] + predictors).copy()
     visits_per_person = data.groupby(PARTICIPANT)[outcome].transform("size")
@@ -475,7 +475,7 @@ results["H4"] = {
     "n_strata_informative": len(tables),
     "within_cohort_perm_obs": float(observed_prevalence),
     "within_cohort_perm_null_max": float(shuffled_prevalence.max()),
-    "within_cohort_perm_p": float((shuffled_prevalence >= observed_prevalence).mean()),
+    "within_cohort_perm_p": float((1 + (shuffled_prevalence >= observed_prevalence).sum()) / (1 + N_PERMUTATIONS)),
 }
 print("H4", results["H4"], flush=True)
 

@@ -783,7 +783,7 @@
     "n_strata_informative": 3,
     "within_cohort_perm_obs": 0.7781411828836196,
     "within_cohort_perm_null_max": 0.7792313982011447,
-    "within_cohort_perm_p": 0.2761
+    "within_cohort_perm_p": 0.27617238276172384
   },
   "H5": {
     "primary": {
