@@ -206,7 +206,7 @@ def conditional_logit_viraemia(data, temperature, extra_covariates=None):
     """Conditional logistic regression of viraemia on temperature, matched on participant.
 
     Only participants with both viraemic and non-viraemic visits inform it.
-    Temperature and year are centred. The model is fitted by Newton's method.
+    Temperature is centred and 2014 is subtracted from year. Fitted by Newton's method.
     `converged` is true when the estimates and standard errors are finite
     and the gradient (score) at the solution is numerically zero.
 
