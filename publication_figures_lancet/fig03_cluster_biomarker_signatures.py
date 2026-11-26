@@ -2,7 +2,7 @@
 
 Scientific purpose (manuscript v1, Sections 3.4-3.5):
     The three GMM clusters separate primarily on four biomarkers whose lag-response
-    profiles drive the composite heat-sensitivity score: haematocrit, viral load,
+    profiles have the largest cross-validated R-squared: haematocrit, viral load,
     haemoglobin and body fat %. This figure shows each biomarker's mean |SHAP|
     across all seven temperature lags with 95% bootstrap CI, directional
     asymmetry (fraction of SHAP values that are positive) and the peak lag at
@@ -201,7 +201,7 @@ def build_figure():
     if not ARTWORK_MODE:
         fig.text(
             0.02, 0.985,
-            "Figure 3  |  Temperature SHAP signatures for the four biomarkers driving GMM cluster separation",
+            "Figure 3  |  Temperature SHAP signatures for haematocrit, HIV viral load, haemoglobin and body fat percentage",
             fontsize=9.8, fontweight="bold", ha="left", va="top",
         )
     # ---- Shared colour bar for the directional axis ----
@@ -210,7 +210,7 @@ def build_figure():
     sm.set_array([])
     cb = fig.colorbar(sm, cax=cbar_ax, orientation="horizontal")
     cb.set_ticks([0.30, 0.50, 0.70])
-    cb.set_ticklabels(["30% (temp ↓ biomarker)", "50%", "70% (temp ↑ biomarker)"])
+    cb.set_ticklabels(["30% (mostly negative)", "50%", "70% (mostly positive)"])
     cb.ax.tick_params(labelsize=6.2, length=2, pad=2)
     cb.outline.set_linewidth(0.4)
     cb.outline.set_edgecolor("#666666")
@@ -225,7 +225,7 @@ def build_figure():
     save_at_width(fig, OUT_DIR, "fig03_cluster_biomarker_signatures", span="double")
     write_caption(
         OUT_DIR, "fig03_cluster_biomarker_signatures",
-        "Figure 3: Temperature SHAP signatures for the four biomarkers driving GMM cluster separation. For (a) haematocrit, (b) viral load, (c) haemoglobin, and (d) body fat percentage (the four biomarkers that most strongly separate Cluster 3 from Clusters 1 and 2), the upper panel of each shows the mean absolute SHAP value for the temperature feature across the seven lag windows (six single-day lags from 0 to 21 days plus a 30-day cumulative mean, 50 bootstrap replicates), with the peak lag marked. The lower panel shows the fraction of participant-visits with a positive temperature SHAP value; bars show the departure from 50%, so a lag with no visible bar had a fraction close to 50%. Line colour encodes physiological domain, consistent with figure 1, and marker fill encodes the fraction of participant-visits with a positive temperature SHAP value. † marks the 30-day cumulative mean. Vertical scales differ between panels because absolute SHAP magnitudes are not comparable across biomarkers.",
+        "Figure 3: Temperature SHAP signatures for haematocrit, HIV viral load, haemoglobin and body fat percentage. For (a) haematocrit, (b) HIV viral load, (c) haemoglobin, and (d) body fat percentage (the four retained biomarkers with the highest cross-validated R-squared), the upper panel of each shows the mean absolute SHAP value for the temperature feature across the seven lag windows (six single-day lags from 0 to 21 days plus a 30-day cumulative mean, 50 bootstrap replicates), with the peak lag marked. The lower panel shows the fraction of participant-visits with a positive temperature SHAP value; bars show the departure from 50%, so a lag with no visible bar had a fraction close to 50%. Line colour encodes physiological domain, consistent with figure 1, and marker fill encodes the fraction of participant-visits with a positive temperature SHAP value. † marks the 30-day cumulative mean. Vertical scales differ between panels because absolute SHAP magnitudes are not comparable across biomarkers.",
         "",
     )
     plt.close(fig)

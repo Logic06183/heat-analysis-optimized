@@ -109,7 +109,7 @@ z
     <g id="ytick_7">
      <g id="line2d_12"/>
      <g id="text_12">
-      <text style="font-size: 7.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="56.862606" y="190.087996" transform="rotate(-0 56.862606 190.087996)">Viral load</text>
+      <text style="font-size: 7.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="56.862606" y="190.087996" transform="rotate(-0 56.862606 190.087996)">HIV viral load</text>
      </g>
     </g>
     <g id="ytick_8">
@@ -723,7 +723,7 @@ L -2.5 0
       </g>
      </g>
      <g id="text_86">
-      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="378.420626" y="187.598844" transform="rotate(-0 378.420626 187.598844)">Viral load</text>
+      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #1b9e77" x="378.420626" y="187.598844" transform="rotate(-0 378.420626 187.598844)">HIV viral load</text>
      </g>
     </g>
     <g id="ytick_18">
@@ -961,7 +961,7 @@ z
       </g>
      </g>
      <g id="text_108">
-      <text style="font-size: 6.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #1b9e77" transform="translate(189.740219 585.263994) rotate(-38)">Viral load</text>
+      <text style="font-size: 6.5px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; fill: #1b9e77" transform="translate(189.740219 585.263994) rotate(-38)">HIV viral load</text>
      </g>
     </g>
     <g id="xtick_24">

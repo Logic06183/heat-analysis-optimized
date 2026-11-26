@@ -352,7 +352,7 @@ z
      </g>
     </g>
     <g id="text_18">
-     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="23.682265" transform="rotate(-0 124.748335 23.682265)">Cluster 1  Younger marginalised (47·1%)</text>
+     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="23.682265" transform="rotate(-0 124.748335 23.682265)">Cluster 1 (47·1%)</text>
     </g>
     <g id="line2d_26">
      <defs>
@@ -373,7 +373,7 @@ z
      </g>
     </g>
     <g id="text_19">
-     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="32.44789" transform="rotate(-0 124.748335 32.44789)">Cluster 2  Older, employed (13·4%)</text>
+     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="32.44789" transform="rotate(-0 124.748335 32.44789)">Cluster 2 (13·4%)</text>
     </g>
     <g id="line2d_27">
      <defs>
@@ -394,7 +394,7 @@ z
      </g>
     </g>
     <g id="text_20">
-     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="41.209265" transform="rotate(-0 124.748335 41.209265)">Cluster 3  High HIV burden (39·5%)</text>
+     <text style="font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start" x="124.748335" y="41.209265" transform="rotate(-0 124.748335 41.209265)">Cluster 3, HIV-enriched (39·5%)</text>
     </g>
    </g>
    <g id="PathCollection_2">
@@ -543,7 +543,7 @@ z
       </g>
      </g>
      <g id="text_28">
-      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="151.800934" transform="rotate(-0 310.701807 151.800934)">Younger marginalised</text>
+      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="151.800934" transform="rotate(-0 310.701807 151.800934)">Cluster 1</text>
      </g>
     </g>
     <g id="ytick_9">
@@ -553,7 +553,7 @@ z
       </g>
      </g>
      <g id="text_29">
-      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="100.582846" transform="rotate(-0 310.701807 100.582846)">Older, employed</text>
+      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="100.582846" transform="rotate(-0 310.701807 100.582846)">Cluster 2</text>
      </g>
     </g>
     <g id="ytick_10">
@@ -563,7 +563,7 @@ z
       </g>
      </g>
      <g id="text_30">
-      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="49.275071" transform="rotate(-0 310.701807 49.275071)">High HIV burden</text>
+      <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="310.701807" y="49.275071" transform="rotate(-0 310.701807 49.275071)">Cluster 3</text>
      </g>
     </g>
    </g>
@@ -650,7 +650,7 @@ L 0 -3
     <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #111111" x="287.250436" y="10.757812" transform="rotate(-0 287.250436 10.757812)">b</text>
    </g>
    <g id="text_35">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle" x="408.737341" y="10.012078" transform="rotate(-0 408.737341 10.012078)">HIV burden by cluster (95% CI)</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle" x="408.737341" y="10.012078" transform="rotate(-0 408.737341 10.012078)">HIV-positive prevalence by cluster (95% CI)</text>
    </g>
    <g id="line2d_43">
     <defs>
@@ -838,7 +838,7 @@ L 249.93421 247.720527
      </g>
     </g>
     <g id="text_44">
-     <text style="font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="166.265542" y="406.647146" transform="rotate(-0 166.265542 406.647146)">Composite heat-sensitivity score  (z-scaled)</text>
+     <text style="font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="166.265542" y="406.647146" transform="rotate(-0 166.265542 406.647146)">Composite temperature SHAP score  (z-scaled)</text>
     </g>
    </g>
    <g id="matplotlib.axis_6">
@@ -849,7 +849,7 @@ L 249.93421 247.720527
       </g>
      </g>
      <g id="text_45">
-      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="348.370177" transform="rotate(-0 76.596875 348.370177)">Younger marginalised</text>
+      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="348.370177" transform="rotate(-0 76.596875 348.370177)">Cluster 1</text>
      </g>
     </g>
     <g id="ytick_12">
@@ -859,7 +859,7 @@ L 249.93421 247.720527
       </g>
      </g>
      <g id="text_46">
-      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="313.361257" transform="rotate(-0 76.596875 313.361257)">Older, employed</text>
+      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="313.361257" transform="rotate(-0 76.596875 313.361257)">Cluster 2</text>
      </g>
     </g>
     <g id="ytick_13">
@@ -869,7 +869,7 @@ L 249.93421 247.720527
       </g>
      </g>
      <g id="text_47">
-      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="278.267023" transform="rotate(-0 76.596875 278.267023)">High HIV burden</text>
+      <text style="font-weight: 600; font-size: 7px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: end; fill: #222222" x="76.596875" y="278.267023" transform="rotate(-0 76.596875 278.267023)">Cluster 3</text>
      </g>
     </g>
    </g>
@@ -968,7 +968,7 @@ L 159.393066 270.504052
     <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #111111" x="42.435915" y="240.279044" transform="rotate(-0 42.435915 240.279044)">c</text>
    </g>
    <g id="text_53">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle" x="166.265542" y="241.720527" transform="rotate(-0 166.265542 241.720527)">Heat-sensitivity by vulnerability cluster  (mean, 95% CI)</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle" x="166.265542" y="241.720527" transform="rotate(-0 166.265542 241.720527)">Composite SHAP score by cluster  (mean, 95% CI)</text>
    </g>
   </g>
   <g id="axes_4">
@@ -1419,19 +1419,19 @@ L 329.159446 348.143295
     <text style="font-weight: 600; font-size: 6.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #222222" x="315.880061" y="361.732703" transform="rotate(-0 315.880061 361.732703)">Mean age (years)</text>
    </g>
    <g id="text_78">
-    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="346.284657" y="370.911144" transform="rotate(-0 346.284657 370.911144)">Younger marginalised</text>
+    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="346.284657" y="370.911144" transform="rotate(-0 346.284657 370.911144)">Cluster 1</text>
    </g>
    <g id="text_79">
     <text style="font-weight: 600; font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="346.284657" y="377.376537" transform="rotate(-0 346.284657 377.376537)">33·9 (33·6–34·3)</text>
    </g>
    <g id="text_80">
-    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="405.450357" y="370.937878" transform="rotate(-0 405.450357 370.937878)">Older, employed</text>
+    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="405.450357" y="370.937878" transform="rotate(-0 405.450357 370.937878)">Cluster 2</text>
    </g>
    <g id="text_81">
     <text style="font-weight: 600; font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="405.450357" y="377.376537" transform="rotate(-0 405.450357 377.376537)">49·3 (48·7–49·9)</text>
    </g>
    <g id="text_82">
-    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="467.903041" y="370.911144" transform="rotate(-0 467.903041 370.911144)">High HIV burden</text>
+    <text style="font-style: italic; font-size: 5.8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="467.903041" y="370.911144" transform="rotate(-0 467.903041 370.911144)">Cluster 3</text>
    </g>
    <g id="text_83">
     <text style="font-weight: 600; font-size: 6.3px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="467.903041" y="377.376537" transform="rotate(-0 467.903041 377.376537)">32·0 (31·7–32·3)</text>

@@ -825,7 +825,7 @@ L 493.932426 95.681403
     <text style="font-weight: 700; font-size: 10px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #111111" x="271.061058" y="47.22176" transform="rotate(-0 271.061058 47.22176)">b</text>
    </g>
    <g id="text_35">
-    <text style="font-weight: 600; font-size: 8.6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #222222" x="305.185334" y="64.78998" transform="rotate(-0 305.185334 64.78998)">Viral load</text>
+    <text style="font-weight: 600; font-size: 8.6px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #222222" x="305.185334" y="64.78998" transform="rotate(-0 305.185334 64.78998)">HIV viral load</text>
    </g>
    <g id="PathCollection_8">
     <defs>
@@ -2293,7 +2293,7 @@ L 0 2
       </g>
      </g>
      <g id="text_94">
-      <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="259.838369" y="17.733386" transform="rotate(-0 259.838369 17.733386)">30% (temp ↓ biomarker)</text>
+      <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="259.838369" y="17.733386" transform="rotate(-0 259.838369 17.733386)">30% (mostly negative)</text>
      </g>
     </g>
     <g id="xtick_58">
@@ -2313,7 +2313,7 @@ L 0 2
       </g>
      </g>
      <g id="text_96">
-      <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="392.138369" y="17.733386" transform="rotate(-0 392.138369 17.733386)">70% (temp ↑ biomarker)</text>
+      <text style="font-size: 6.2px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: middle; fill: #222222" x="392.138369" y="17.733386" transform="rotate(-0 392.138369 17.733386)">70% (mostly positive)</text>
      </g>
     </g>
    </g>

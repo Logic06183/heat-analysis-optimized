@@ -1814,7 +1814,7 @@ L 358.109644 215.211337
 " clip-path="url(#p01d5ec0105)" style="fill: none; stroke: #1b9e77; stroke-width: 1.3; stroke-linecap: square"/>
    </g>
    <g id="text_66">
-    <text style="font-weight: 600; font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #1b9e77" x="280.47343" y="171.816718" transform="rotate(-0 280.47343 171.816718)">Viral load</text>
+    <text style="font-weight: 600; font-size: 8px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #1b9e77" x="280.47343" y="171.816718" transform="rotate(-0 280.47343 171.816718)">HIV viral load</text>
    </g>
    <g id="text_67">
     <text style="font-size: 6.4px; font-family: 'Arial', 'Helvetica', 'DejaVu Sans', 'Liberation Sans', sans-serif; text-anchor: start; fill: #555555" x="280.47343" y="184.903617" transform="rotate(-0 280.47343 184.903617)">n=22,036   R²=0·29   peak 30 d</text>
