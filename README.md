@@ -2,7 +2,7 @@
 
 Analysis code for:
 
-Parker C, Brink N, Radebe L, et al. *Multi-system biomarker signatures of ambient heat exposure in Johannesburg: a multi-cohort study with a hypothesis-generating vulnerability cluster in people living with HIV.* Submitted to The Lancet Regional Health – Africa, 2026.
+Parker C, Brink N, Radebe L, et al. *Multi-system biomarker signatures of ambient heat exposure in Johannesburg: screening routinely collected clinical data from 14 cohorts.* Submitted to The Lancet Regional Health – Africa, 2026.
 
 HE2AT Center (HEat and HEalth African Transdisciplinary Center), NIH award U54 TW 012083, Fogarty International Center. Study protocol: Jack C, Parker C, et al. BMJ Open 2024; 14: e077529.
 
@@ -77,6 +77,7 @@ Run and not reported in the paper:
 Provenance notes:
 
 - SA6 numbers in the paper come from `rerun_10biomarker_robustness.py` and `rerun_10biomarker_lobo.py`, written to `mcd_outputs_era5_land/diagnostics_10biomarker/`. `sa11_leave_one_cohort_out.py` is the earlier implementation and its output under `sensitivity/sa11_leave_one_cohort_out/` is from the thirteen-biomarker fit.
+- `mcd_pipeline/stage3_clustering/run_stage3.py` admits every biomarker with a Stage 1 model and a cross-validated R² of zero or more. The Stage 3 solution reported in the paper is the ten-biomarker run (`mcd_outputs_era5_land/stage3_r2_005`), restricted to biomarkers with a cross-validated R² of 0·05 or more.
 - SA9 adjusts for MERRA-2 PM2.5 at the seven lag windows, not for boundary-layer height.
 - SA10 (`sa4_covid_exclusion.py`) drops calendar years 2020 and 2021 and re-runs Stage 1, reporting lag-profile concordance; it does not refit Stage 3.
 

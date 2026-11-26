@@ -29,7 +29,7 @@ bottom with no hidden state.
 | `04_clustering_sensitivity.py` | SA13, SA14 | Number of clusters; missing-biomarker treatments; cohort exclusions |
 | `05_availability_by_cohort.py` | SA14 | Which cohorts measured which biomarkers, and Cluster 3 share |
 | `06_within_panel_clustering.py` | SA14 | Clustering inside one cohort or one biomarker panel |
-| `07_hiv_prespecified_tests.py` | SA15 | Five pre-specified HIV tests and the post hoc checks of H3 |
+| `07_hiv_prespecified_tests.py` | SA15 | Five pre-specified HIV tests and the post hoc checks of H2 and H3 |
 | `08_utci_download.py` | SA16 | Downloads UTCI from the Copernicus Climate Data Store |
 | `09_utci_sensitivity.py` | SA16 | The screen repeated with UTCI |
 | `10_stage2_full_table.py` | Supplementary data file 1 | All 340 Stage 2 pairs with direction |
